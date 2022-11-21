@@ -7,6 +7,11 @@
 
 typedef NEInteger (*NECollectionSorter)(KeyValue left, KeyValue right);
 
+typedef struct NECollectionMapResult {
+  KeyValue value;
+  NEDataMapDecision decision;
+} NECollectionMapResult;
+
 typedef struct NECollectionItem {
   NENode node;
   KeyValue keyValue;

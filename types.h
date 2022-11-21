@@ -14,4 +14,17 @@ typedef char *NEStrPtr;
 extern const NEBool NETrue;
 extern const NEBool NEFalse;
 
+/**
+ * @brief Used by collection map() style methods where data transforms occur
+ * to collection items. When items should be kept without any change to the
+ * data, use NE_IGNORE. When items should be removed from the resulting
+ * collection, use NE_DROP. Lastly, when changes were made, return
+ * NE_TRANSFORM.
+ */
+typedef enum NEDataMapDecision {
+  NE_IGNORE,
+  NE_DROP,
+  NE_TRANSFORM
+} NEDataMapDecision;
+
 #endif

@@ -20,6 +20,12 @@
     "iterator": "c",
     "memory": "c",
     "utility": "c",
-    "__node_handle": "c"
+    "__node_handle": "c",
+    "types.h": "c"
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#56113A",
+    "titleBar.activeBackground": "#791851",
+    "titleBar.activeForeground": "#FEFCFD"
   }
 }
