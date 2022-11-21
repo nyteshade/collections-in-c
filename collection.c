@@ -81,6 +81,7 @@ void NECollectionAddString(Collection *self, const NEStrPtr value) {
   if (item) {
     item->keyValue.type = NE_STRING;
     item->keyValue.data.string = strdup(value);
+    item->keyValue.length = strlen(value);
     self->list->addNode(self->list, (NENode *)item);
   }
 }
