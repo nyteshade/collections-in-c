@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Collection *NECollectionCreate(void) {
-    Collection *self = calloc(1, sizeof(Collection));
+NECollection *NECollectionCreate(void) {
+    NECollection *self = calloc(1, sizeof(NECollection));
     self->list = NECreateList();
     self->add = NECollectionAdd;
     self->addByte = NECollectionAddByte;
@@ -26,25 +26,25 @@ Collection *NECollectionCreate(void) {
     return self;
 }
 
-void NECollectionFree(Collection *self) {
+void NECollectionFree(NECollection *self) {
     NEDestroyList(self->list);
     free(self);
 }
 
-void NECollectionAdd(Collection *self, KeyValue value) {
-  CollectionItem *item = 0L;
+void NECollectionAdd(NECollection *self, KeyValue value) {
+  NECollectionItem *item = 0L;
 
-  item = calloc(1, sizeof(CollectionItem));
+  item = calloc(1, sizeof(NECollectionItem));
   if (item) {
     item->keyValue = value;
     self->list->addNode(self->list, (NENode *)item);
   }
 }
 
-void NECollectionAddByte(Collection *self, NEByte value) {
-  CollectionItem *item = 0L;
+void NECollectionAddByte(NECollection *self, NEByte value) {
+  NECollectionItem *item = 0L;
 
-  item = calloc(1, sizeof(CollectionItem));
+  item = calloc(1, sizeof(NECollectionItem));
   if (item) {
     item->keyValue.type = NE_BYTE;
     item->keyValue.data.byte = value;
@@ -52,10 +52,10 @@ void NECollectionAddByte(Collection *self, NEByte value) {
   }
 }
 
-void NECollectionAddInteger(Collection *self, NEInteger value) {
-  CollectionItem *item = 0L;
+void NECollectionAddInteger(NECollection *self, NEInteger value) {
+  NECollectionItem *item = 0L;
 
-  item = calloc(1, sizeof(CollectionItem));
+  item = calloc(1, sizeof(NECollectionItem));
   if (item) {
     item->keyValue.type = NE_INTEGER;
     item->keyValue.data.integer = value;
@@ -63,10 +63,10 @@ void NECollectionAddInteger(Collection *self, NEInteger value) {
   }
 }
 
-void NECollectionAddDecimal(Collection *self, NEDecimal value) {
-  CollectionItem *item = 0L;
+void NECollectionAddDecimal(NECollection *self, NEDecimal value) {
+  NECollectionItem *item = 0L;
 
-  item = calloc(1, sizeof(CollectionItem));
+  item = calloc(1, sizeof(NECollectionItem));
   if (item) {
     item->keyValue.type = NE_DECIMAL;
     item->keyValue.data.decimal = value;
@@ -74,10 +74,10 @@ void NECollectionAddDecimal(Collection *self, NEDecimal value) {
   }
 } 
 
-void NECollectionAddString(Collection *self, const NEStrPtr value) {
-  CollectionItem *item = 0L;
+void NECollectionAddString(NECollection *self, const NEStrPtr value) {
+  NECollectionItem *item = 0L;
 
-  item = calloc(1, sizeof(CollectionItem));
+  item = calloc(1, sizeof(NECollectionItem));
   if (item) {
     item->keyValue.type = NE_STRING;
     item->keyValue.data.string = strdup(value);
@@ -86,10 +86,10 @@ void NECollectionAddString(Collection *self, const NEStrPtr value) {
   }
 }
 
-void NECollectionAddPointer(Collection *self, NEPointer value) {
-  CollectionItem *item = 0L;
+void NECollectionAddPointer(NECollection *self, NEPointer value) {
+  NECollectionItem *item = 0L;
 
-  item = calloc(1, sizeof(CollectionItem));
+  item = calloc(1, sizeof(NECollectionItem));
   if (item) {
     item->keyValue.type = NE_POINTER;
     item->keyValue.data.pointer = value;
@@ -97,9 +97,9 @@ void NECollectionAddPointer(Collection *self, NEPointer value) {
   }
 }
 
-KeyValue *NECollectionFindByte(Collection *self, NEByte value) {
-  CollectionItem *item = NULL;
-  NEForEachNodeDo(CollectionItem*, self->list->head, item) {
+KeyValue *NECollectionFindByte(NECollection *self, NEByte value) {
+  NECollectionItem *item = NULL;
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
     if (item->keyValue.type == NE_BYTE && item->keyValue.data.byte == value) {
       return &item->keyValue;
     }
@@ -107,36 +107,36 @@ KeyValue *NECollectionFindByte(Collection *self, NEByte value) {
   return NULL;
 }
 
-KeyValue *NECollectionFindInteger(Collection *self, NEInteger value) {
-  CollectionItem *item = NULL;
-  NEForEachNodeDo(CollectionItem*, self->list->head, item) {
+KeyValue *NECollectionFindInteger(NECollection *self, NEInteger value) {
+  NECollectionItem *item = NULL;
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
     if (item->keyValue.type == NE_INTEGER && item->keyValue.data.integer == value) {
       return &item->keyValue;
     }
   }
   return NULL;
 }
-KeyValue *NECollectionFindDecimal(Collection *self, NEDecimal value) {
-  CollectionItem *item = NULL;
-  NEForEachNodeDo(CollectionItem*, self->list->head, item) {
+KeyValue *NECollectionFindDecimal(NECollection *self, NEDecimal value) {
+  NECollectionItem *item = NULL;
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
     if (item->keyValue.type == NE_DECIMAL && item->keyValue.data.decimal == value) {
       return &item->keyValue;
     }
   }
   return NULL;
 }
-KeyValue *NECollectionFindString(Collection *self, const NEStrPtr value) {
-  CollectionItem *item = NULL;
-  NEForEachNodeDo(CollectionItem*, self->list->head, item) {
+KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value) {
+  NECollectionItem *item = NULL;
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
     if (item->keyValue.type == NE_STRING && strcmp(item->keyValue.data.string, value) == 0) {
       return &item->keyValue;
     }
   }
   return NULL;
 }
-KeyValue *NECollectionFindPointer(Collection *self, NEPointer value) {
-  CollectionItem *item = NULL;
-  NEForEachNodeDo(CollectionItem*, self->list->head, item) {
+KeyValue *NECollectionFindPointer(NECollection *self, NEPointer value) {
+  NECollectionItem *item = NULL;
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
     if (item->keyValue.type == NE_POINTER && item->keyValue.data.pointer == value) {
       return &item->keyValue;
     }
@@ -144,20 +144,20 @@ KeyValue *NECollectionFindPointer(Collection *self, NEPointer value) {
   return NULL;
 }
 
-KeyValue *NECollectionAt(Collection *self, NEInteger index) {
-  CollectionItem *item = (CollectionItem *)NEListGetNodeAtIndex(self->list, index);
+KeyValue *NECollectionAt(NECollection *self, NEInteger index) {
+  NECollectionItem *item = (NECollectionItem *)NEListGetNodeAtIndex(self->list, index);
   if (item) {
     return &item->keyValue;
   }
   return NULL;
 }
-NEInteger NECollectionCount(Collection *self) {
+NEInteger NECollectionCount(NECollection *self) {
   return NEListSize(self->list);
 }
-void NECollectionClear(Collection *self) {
+void NECollectionClear(NECollection *self) {
   NEDestroyList(self->list);
   self->list = NECreateList();
 }
-void NECollectionSort(Collection *self, NECollectionSorter sorter) {
+void NECollectionSort(NECollection *self, NECollectionSorter sorter) {
   return;
 }

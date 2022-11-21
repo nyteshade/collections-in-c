@@ -7,53 +7,53 @@
 
 typedef NEInteger (*NECollectionSorter)(KeyValue left, KeyValue right);
 
-typedef struct CollectionItem {
+typedef struct NECollectionItem {
   NENode node;
   KeyValue keyValue;
-} CollectionItem;
+} NECollectionItem;
 
-typedef struct Collection {
+typedef struct NECollection {
     NEList *list;
 
-    void (*add)(struct Collection *self, KeyValue value);
-    void (*addByte)(struct Collection *self, NEByte value);
-    void (*addInteger)(struct Collection *self, NEInteger value);
-    void (*addDecimal)(struct Collection *self, NEDecimal value);
-    void (*addString)(struct Collection *self, const NEStrPtr value);
-    void (*addPointer)(struct Collection *self, NEPointer value);
+    void (*add)(struct NECollection *self, KeyValue value);
+    void (*addByte)(struct NECollection *self, NEByte value);
+    void (*addInteger)(struct NECollection *self, NEInteger value);
+    void (*addDecimal)(struct NECollection *self, NEDecimal value);
+    void (*addString)(struct NECollection *self, const NEStrPtr value);
+    void (*addPointer)(struct NECollection *self, NEPointer value);
 
-    KeyValue *(*findByte)(struct Collection *self, NEByte value);
-    KeyValue *(*findInteger)(struct Collection *self, NEInteger value);
-    KeyValue *(*findDecimal)(struct Collection *self, NEDecimal value);
-    KeyValue *(*findString)(struct Collection *self, const NEStrPtr value);
-    KeyValue *(*findPointer)(struct Collection *self, NEPointer value);
+    KeyValue *(*findByte)(struct NECollection *self, NEByte value);
+    KeyValue *(*findInteger)(struct NECollection *self, NEInteger value);
+    KeyValue *(*findDecimal)(struct NECollection *self, NEDecimal value);
+    KeyValue *(*findString)(struct NECollection *self, const NEStrPtr value);
+    KeyValue *(*findPointer)(struct NECollection *self, NEPointer value);
 
-    KeyValue *(*at)(struct Collection *self, NEInteger index);
-    NEInteger (*count)(struct Collection *self);
-    void (*clear)(struct Collection *self);
-    void (*sort)(struct Collection *self, NECollectionSorter sorter);
-} Collection;
+    KeyValue *(*at)(struct NECollection *self, NEInteger index);
+    NEInteger (*count)(struct NECollection *self);
+    void (*clear)(struct NECollection *self);
+    void (*sort)(struct NECollection *self, NECollectionSorter sorter);
+} NECollection;
 
-Collection *NECollectionCreate(void);
-void NECollectionFree(Collection *self);
+NECollection *NECollectionCreate(void);
+void NECollectionFree(NECollection *self);
 
-void NECollectionAdd(Collection *self, KeyValue value);
-void NECollectionAddByte(Collection *self, NEByte value);
-void NECollectionAddInteger(Collection *self, NEInteger value);
-void NECollectionAddDecimal(Collection *self, NEDecimal value);
-void NECollectionAddString(Collection *self, const NEStrPtr value);
-void NECollectionAddPointer(Collection *self, NEPointer value);
+void NECollectionAdd(NECollection *self, KeyValue value);
+void NECollectionAddByte(NECollection *self, NEByte value);
+void NECollectionAddInteger(NECollection *self, NEInteger value);
+void NECollectionAddDecimal(NECollection *self, NEDecimal value);
+void NECollectionAddString(NECollection *self, const NEStrPtr value);
+void NECollectionAddPointer(NECollection *self, NEPointer value);
 
-KeyValue *NECollectionFindByte(Collection *self, NEByte value);
-KeyValue *NECollectionFindInteger(Collection *self, NEInteger value);
-KeyValue *NECollectionFindDecimal(Collection *self, NEDecimal value);
-KeyValue *NECollectionFindString(Collection *self, const NEStrPtr value);
-KeyValue *NECollectionFindPointer(Collection *self, NEPointer value);
+KeyValue *NECollectionFindByte(NECollection *self, NEByte value);
+KeyValue *NECollectionFindInteger(NECollection *self, NEInteger value);
+KeyValue *NECollectionFindDecimal(NECollection *self, NEDecimal value);
+KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value);
+KeyValue *NECollectionFindPointer(NECollection *self, NEPointer value);
 
-KeyValue *NECollectionAt(Collection *self, NEInteger index);
-NEInteger NECollectionCount(Collection *self);
-void NECollectionClear(Collection *self);
-void NECollectionSort(Collection *self, NECollectionSorter sorter);
+KeyValue *NECollectionAt(NECollection *self, NEInteger index);
+NEInteger NECollectionCount(NECollection *self);
+void NECollectionClear(NECollection *self);
+void NECollectionSort(NECollection *self, NECollectionSorter sorter);
 
 
 #endif
