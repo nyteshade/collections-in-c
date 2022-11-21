@@ -23,6 +23,9 @@ NECollection *NECollectionCreate(void) {
     self->count = NECollectionCount;
     self->clear = NECollectionClear;
     self->sort = NECollectionSort;
+    self->map = NECollectionMap;
+    self->filter = NECollectionFilter;
+    self->forEach = NECollectionForEach;
     return self;
 }
 
@@ -95,6 +98,69 @@ void NECollectionAddPointer(NECollection *self, NEPointer value) {
     item->keyValue.data.pointer = value;
     self->list->addNode(self->list, (NENode *)item);
   }
+}
+
+void NECollectionForEach(NECollection *self, NECollectionIterator iterator) {
+  NECollectionItem *item = NULL;
+  NEULong index = 0;
+
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
+    iterator(item->keyValue, index);
+    index++;
+  }
+}
+
+NECollection *NECollectionFilter(NECollection *self, NECollectionValidator validator) {
+  NECollection *newCollection = NECollectionCreate();
+  NECollectionItem *item = NULL;
+  NEULong index = 0;
+
+  if (!newCollection) {
+    return NULL;
+  }
+
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
+    NEBool result = validator(item->keyValue, index);
+
+    if (result) {
+      newCollection->add(newCollection, item->keyValue);
+    }
+
+    index++;
+  }
+
+  return newCollection;
+}
+
+NECollection *NECollectionMap(NECollection *self, NECollectionMapper mapper) {
+  NECollection *newCollection = NECollectionCreate();
+  NECollectionItem *item = NULL;
+  NEULong index = 0;
+
+  if (!newCollection) {
+    return NULL;
+  }
+
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
+    NECollectionMapResult result = mapper(item->keyValue, index);
+
+    switch (result.decision) {
+      case NE_IGNORE:
+        newCollection->add(newCollection, item->keyValue);
+        break;
+
+      case NE_DROP:
+        break;
+
+      case NE_TRANSFORM: 
+        newCollection->add(newCollection, result.value);
+        break;
+    }
+
+    index++;
+  }
+
+  return newCollection;
 }
 
 KeyValue *NECollectionFindByte(NECollection *self, NEByte value) {

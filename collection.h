@@ -5,6 +5,9 @@
 #include "lists.h"
 #include "types.h"
 
+struct NECollection;
+typedef struct NECollection NECollection;
+
 typedef NEInteger (*NECollectionSorter)(KeyValue left, KeyValue right);
 
 typedef struct NECollectionMapResult {
@@ -17,7 +20,22 @@ typedef struct NECollectionItem {
   KeyValue keyValue;
 } NECollectionItem;
 
-typedef struct NECollection {
+typedef NECollectionMapResult (*NECollectionMapper)(
+  KeyValue value,
+  NEULong index
+);
+
+typedef void (*NECollectionIterator)(
+  KeyValue value,
+  NEULong index
+);
+
+typedef NEBool (*NECollectionValidator)(
+  KeyValue value,
+  NEULong index
+);
+
+struct NECollection {
     NEList *list;
 
     void (*add)(struct NECollection *self, KeyValue value);
@@ -37,7 +55,11 @@ typedef struct NECollection {
     NEInteger (*count)(struct NECollection *self);
     void (*clear)(struct NECollection *self);
     void (*sort)(struct NECollection *self, NECollectionSorter sorter);
-} NECollection;
+
+    NECollection *(*map)(struct NECollection *self, NECollectionMapper mapper);
+    NECollection *(*filter)(struct NECollection *self, NECollectionValidator validator);
+    void (*forEach)(struct NECollection *self, NECollectionIterator iterator);
+};
 
 NECollection *NECollectionCreate(void);
 void NECollectionFree(NECollection *self);
@@ -48,6 +70,10 @@ void NECollectionAddInteger(NECollection *self, NEInteger value);
 void NECollectionAddDecimal(NECollection *self, NEDecimal value);
 void NECollectionAddString(NECollection *self, const NEStrPtr value);
 void NECollectionAddPointer(NECollection *self, NEPointer value);
+
+NECollection *NECollectionMap(NECollection *self, NECollectionMapper mapper);
+NECollection *NECollectionFilter(NECollection *self, NECollectionValidator validator);
+void NECollectionForEach(NECollection *self, NECollectionIterator iterator);
 
 KeyValue *NECollectionFindByte(NECollection *self, NEByte value);
 KeyValue *NECollectionFindInteger(NECollection *self, NEInteger value);
