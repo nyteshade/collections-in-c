@@ -48,7 +48,7 @@ struct NECollection {
     KeyValue *(*findByte)(struct NECollection *self, NEByte value);
     KeyValue *(*findInteger)(struct NECollection *self, NEInteger value);
     KeyValue *(*findDecimal)(struct NECollection *self, NEDecimal value);
-    KeyValue *(*findString)(struct NECollection *self, const NEStrPtr value);
+    KeyValue *(*findString)(struct NECollection *self, const NEStrPtr value, NEBool caseSensitive);
     KeyValue *(*findPointer)(struct NECollection *self, NEPointer value);
 
     KeyValue *(*at)(struct NECollection *self, NEInteger index);
@@ -78,7 +78,7 @@ void NECollectionForEach(NECollection *self, NECollectionIterator iterator);
 KeyValue *NECollectionFindByte(NECollection *self, NEByte value);
 KeyValue *NECollectionFindInteger(NECollection *self, NEInteger value);
 KeyValue *NECollectionFindDecimal(NECollection *self, NEDecimal value);
-KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value);
+KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value, NEBool caseSensitive);
 KeyValue *NECollectionFindPointer(NECollection *self, NEPointer value);
 
 KeyValue *NECollectionAt(NECollection *self, NEInteger index);

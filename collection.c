@@ -191,10 +191,16 @@ KeyValue *NECollectionFindDecimal(NECollection *self, NEDecimal value) {
   }
   return NULL;
 }
-KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value) {
+KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value, NEBool caseSensitive) {
   NECollectionItem *item = NULL;
   NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
-    if (item->keyValue.type == NE_STRING && strcmp(item->keyValue.data.string, value) == 0) {
+    if (
+      item->keyValue.type == NE_STRING && 
+      (caseSensitive 
+        ? strcmp(item->keyValue.data.string, value) 
+        : strcasecmp(item->keyValue.data.string, value)
+      ) == 0
+    ) {
       return &item->keyValue;
     }
   }
