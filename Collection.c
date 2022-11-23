@@ -1,5 +1,5 @@
-#include "collection.h"
-#include "lists.h"
+#include "Collection.h"
+#include "Lists.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -94,7 +94,7 @@ void NECollectionAddDecimal(NECollection *self, NEDecimal value) {
     item->keyValue.data.decimal = value;
     self->list->addNode(self->list, (NENode *)item);
   }
-} 
+}
 
 void NECollectionAddString(NECollection *self, const NEStrPtr value) {
   NECollectionItem *item = 0L;
@@ -182,7 +182,7 @@ NECollection *NECollectionMap(NECollection *self, NECollectionMapper mapper) {
       case NE_DROP:
         break;
 
-      case NE_TRANSFORM: 
+      case NE_TRANSFORM:
         newCollection->add(newCollection, result.value);
         break;
     }
@@ -225,9 +225,9 @@ KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value, NEBoo
   NECollectionItem *item = NULL;
   NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
     if (
-      item->keyValue.type == NE_STRING && 
-      (caseSensitive 
-        ? strcmp(item->keyValue.data.string, value) 
+      item->keyValue.type == NE_STRING &&
+      (caseSensitive
+        ? strcmp(item->keyValue.data.string, value)
         : strcasecmp(item->keyValue.data.string, value)
       ) == 0
     ) {

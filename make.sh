@@ -1,17 +1,13 @@
 #!/bin/sh
 
 printf "Making listfun..."
-gcc -o listfun listfun.c lists.c types.c keyvalue.c collection.c
+gcc -o ListFun ListFun.c Lists.c Types.c KeyValue.c
 printf "done\n"
 
 printf "Making mapfun..."
-gcc -o mapfun mapfun.c map.c types.c lists.c keyvalue.c collection.c
-printf "done\n"
-
-printf "Making listfun..."
-gcc -o listfun listfun.c lists.c types.c keyvalue.c collection.c
+gcc -o MapFun MapFun.c Map.c Types.c Lists.c KeyValue.c
 printf "done\n"
 
 printf "Making collectionfun..."
-gcc -o collectionfun collectionfun.c collection.c lists.c types.c keyvalue.c map.c
+gcc -o CollectionFun CollectionFun.c Collection.c Lists.c Types.c KeyValue.c Map.c
 printf "done\n"

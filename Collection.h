@@ -1,15 +1,9 @@
 #ifndef NE_COLLECTION_H
 #define NE_COLLECTION_H
 
-#ifndef NE_KEYVALUE_H
-#include "keyvalue.h"
-#endif
-
-#ifndef NE_LISTS_H
-#include "lists.h"
-#endif
-
-#include "types.h"
+#include "KeyValue.h"
+#include "Lists.h"
+#include "Types.h"
 
 /* Struct and typedef prototypes */
 typedef struct NECollection NECollection;

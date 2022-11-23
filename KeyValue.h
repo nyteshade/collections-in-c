@@ -1,7 +1,7 @@
 #ifndef NE_KEYVALUE_H
 #define NE_KEYVALUE_H
 
-#include "types.h"
+#include "Types.h"
 
 typedef struct NECollection NECollection;
 

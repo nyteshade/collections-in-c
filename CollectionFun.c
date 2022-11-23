@@ -1,5 +1,5 @@
-#include "collection.h"
-#include "map.h"
+#include "Collection.h"
+#include "Map.h"
 
 #include <stdio.h>
 
@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
 
   const char found[] = "\x1b[32mFound\x1b[0m";
   const char notFound[] = "\x1b[31mNot Found\x1b[0m";
- 
+
   collection->addByte(collection, 65);
   collection->addInteger(collection, 365);
   collection->addDecimal(collection, 3.14159);

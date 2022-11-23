@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "keyvalue.h"
-#include "collection.h"
+#include "KeyValue.h"
+#include "Collection.h"
 
 KeyValue CreateKeyValueByte(NEByte byte) {
   KeyValue result;

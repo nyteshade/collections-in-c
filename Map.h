@@ -1,9 +1,9 @@
 #ifndef NE_MAP_H
 #define NE_MAP_H
 
-#include "lists.h"
-#include "collection.h"
-#include "keyvalue.h"
+#include "Lists.h"
+#include "Collection.h"
+#include "KeyValue.h"
 
 /* Struct and typedef prototypes */
 typedef struct Map Map;

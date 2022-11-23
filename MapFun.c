@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "map.h"
+#include "Map.h"
 
 int main(int argc, char **argv) {
   unsigned long hashsize = 5;

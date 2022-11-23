@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "lists.h"
+#include "Lists.h"
 
 typedef struct NamedNode {
   NENode node;

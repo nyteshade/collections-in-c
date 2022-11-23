@@ -1,6 +1,6 @@
-#include "map.h"
-#include "lists.h"
-#include "collection.h"
+#include "Map.h"
+#include "Lists.h"
+#include "Collection.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -97,11 +97,11 @@ void ne_assign_add_node(Map* map, unsigned long index, MapNode node) {
     }
 
     if (!found) {
-      HashDataRowNode *newNode = calloc(1, sizeof(HashDataRowNode));
-      newNode->data = node;
-      NENodeAdd((NENode *)list, (NENode *)newNode);
-    }
+    HashDataRowNode *newNode = calloc(1, sizeof(HashDataRowNode));
+    newNode->data = node;
+    NENodeAdd((NENode *)list, (NENode *)newNode);
   }
+}
 }
 
 unsigned long CountMapEntries(Map *map) {

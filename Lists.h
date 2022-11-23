@@ -4,7 +4,7 @@
 #define NE_LISTS_NEXT_PARAM next
 #define NE_LISTS_PREV_PARAM prev
 
-#include "types.h"
+#include "Types.h"
 
 /****************************************************************************
  Structure definitions and typedefs
