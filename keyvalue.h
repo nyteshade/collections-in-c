@@ -3,12 +3,15 @@
 
 #include "types.h"
 
+typedef struct NECollection NECollection;
+
 typedef enum KeyValueType {
   NE_BYTE = 0,
   NE_INTEGER,
   NE_DECIMAL,
   NE_STRING,
-  NE_POINTER
+  NE_POINTER,
+  NE_COLLECTION
 } KeyValueType;
 
 typedef union {
@@ -17,6 +20,7 @@ typedef union {
   NEDecimal decimal;
   NEStrPtr string;
   NEPointer pointer;
+  NECollection *collection;
 } KeyValueUnion;
 
 typedef struct KeyValue {
@@ -30,6 +34,7 @@ KeyValue CreateKeyValueInteger(NEInteger integer);
 KeyValue CreateKeyValueDecimal(NEDecimal decimal);
 KeyValue CreateKeyValueString(const NEStrPtr fromString);
 KeyValue CreateKeyValuePointer(NEPointer pointer);
+KeyValue CreateKeyValueCollection(NECollection *collection);
 
 NEBool CompareKeyValues(KeyValue *left, KeyValue *right);
 

@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "keyvalue.h"
+#include "collection.h"
 
 KeyValue CreateKeyValueByte(NEByte byte) {
   KeyValue result;
@@ -14,39 +15,53 @@ KeyValue CreateKeyValueByte(NEByte byte) {
 }
 
 KeyValue CreateKeyValueInteger(NEInteger integer) {
-  return (KeyValue) {
-    NE_INTEGER,
-    { .integer = integer },
-    sizeof(NEInteger)
-  };
+  KeyValue result;
+
+  result.type = NE_INTEGER;
+  result.data.integer = integer;
+  result.length = sizeof(NEInteger);
+
+  return result;
 }
 
 KeyValue CreateKeyValueDecimal(double decimal) {
-  return (KeyValue) {
-    NE_DECIMAL,
-    { .decimal = decimal },
-    sizeof(double)
-  };
+  KeyValue result;
+
+  result.type = NE_DECIMAL;
+  result.data.decimal = decimal;
+  result.length = sizeof(double);
+
+  return result;
 }
 
 KeyValue CreateKeyValueString(const NEStrPtr fromString) {
-  KeyValue result = {
-    NE_STRING,
-    { .string = 0L },
-    strlen(fromString) * sizeof(char)
-  };
+  KeyValue result;
 
+  result.type = NE_STRING;
   result.data.string = strdup(fromString);
+  result.length = strlen(fromString);
 
   return result;
 }
 
 KeyValue CreateKeyValuePointer(void *pointer) {
-  return (KeyValue) {
-    NE_POINTER,
-    { .pointer = pointer },
-    sizeof(pointer)
-  };
+  KeyValue result;
+
+  result.type = NE_POINTER;
+  result.data.pointer = pointer;
+  result.length = sizeof(void *);
+
+  return result;
+}
+
+KeyValue CreateKeyValueCollection(NECollection *collection) {
+  KeyValue result;
+
+  result.type = NE_COLLECTION;
+  result.data.collection = collection;
+  result.length = sizeof(NECollection *);
+
+  return result;
 }
 
 NEBool CompareKeyValues(KeyValue *left, KeyValue *right) {
@@ -58,6 +73,7 @@ NEBool CompareKeyValues(KeyValue *left, KeyValue *right) {
     case NE_DECIMAL: return left->data.decimal == right->data.decimal;
     case NE_POINTER: return left->data.pointer == right->data.pointer;
     case NE_BYTE: return left->data.byte == right->data.byte;
+    case NE_COLLECTION: return left->data.collection == right->data.collection;
   }
 }
 
@@ -69,6 +85,7 @@ void PrintKeyValueStruct(const NEStrPtr title, KeyValue kv) {
     case NE_DECIMAL: printf("Type: Decimal  Data: %f  ", kv.data.decimal); break;
     case NE_STRING: printf("Type: String  Data: '%s'  ", kv.data.string); break;
     case NE_POINTER: printf("Type: Pointer  Data: %lx  ", (NEULong)kv.data.pointer); break;
+    case NE_COLLECTION: printf("Type: Collection  Data: %lx  ", (NEULong)kv.data.collection); break;
   }
   printf("Size: %ld)\n", kv.length);
 }

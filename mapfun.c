@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
   unsigned long hashsize = 5;
   Map map = CreateMap(hashsize);
   MapNode node;
-  MapNodeSet set;
+  NECollection *set = 0L;
   unsigned long size = 0;
   unsigned long i = 0;
   unsigned long index = ne_hash_keyvalue(CreateKeyValueByte('a')) % hashsize;
@@ -47,11 +47,14 @@ int main(int argc, char **argv) {
 
   printf("Size is %ld\n", map.countEntries(&map));
 
-  node = map.data[index]->data;
+  //node = map.data[index]->data;
 
-  printf("\nWe have a map with %ld entries\n", size);
+  printf("\nWe have a map with %ld entries\n", map.countEntries(&map));
 
   set = GatherMapNodes(&map);
+  if (set) {
+    
+
   for (i = 0; i < set.count; i++) {
     PrintKeyValueStruct("Set key", set.data[i].key);
   }

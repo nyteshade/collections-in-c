@@ -36,6 +36,8 @@ typedef struct NEList {
  Function prototypes
  ****************************************************************************/
 
+typedef void (*NEDestroyListNode)(NENode *node);
+
 NENode *NECreateNode(void);
 NENode *NEDuplicateNode(NENode *node, NEULong size);
 void NEInitializeNode(NENode *node);
@@ -45,6 +47,7 @@ void NENodeAdd(NENode *node, NENode *newNode);
 NEList *NECreateList(void);
 void NEInitializeList(NEList *list);
 void NEDestroyList(NEList *list);
+void NEDestroyListCustom(NEList *list, NEDestroyListNode destroyNode);
 
 void NEListAdd(NEList *list, NENode *node);
 void NEListRemove(NEList *list, NENode *node);

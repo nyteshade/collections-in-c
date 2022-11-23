@@ -89,11 +89,18 @@ void NEInitializeList(NEList *list) {
 }
 
 void NEDestroyList(NEList *list) {
+  NEDestroyListCustom(list, NULL);
+}
+
+void NEDestroyListCustom(NEList *list, NEDestroyListNode destroyNode) {
   if (list != NULL) {
     NENode *node = list->head;
 
     while (node != NULL) {
       NENode *next = node->NE_LISTS_NEXT_PARAM;
+      if (destroyNode) {
+        destroyNode(node);
+      }
       NEDestroyNode(node);
       node = next;
     }
