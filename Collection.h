@@ -17,6 +17,7 @@ typedef struct NECollectionStringAtResult NECollectionStringAtResult;
 typedef struct NECollectionPointerAtResult NECollectionPointerAtResult;
 typedef struct NECollectionCollectionAtResult NECollectionCollectionAtResult;
 typedef struct NECollectionMapNodeAtResult NECollectionMapNodeAtResult;
+typedef struct NECollectionMapAtResult NECollectionMapAtResult;
 
 typedef struct NECollectionItem NECollectionItem;
 typedef struct NECollectionMapResult NECollectionMapResult;
@@ -39,6 +40,7 @@ struct NECollection {
     void (*addPointer)(struct NECollection *self, NEPointer value);
     void (*addCollection)(struct NECollection *self, NECollection *value);
     void (*addMapNode)(struct NECollection *self, NEMapNode *node);
+    void (*addMap)(struct NECollection *self, NEMap *map);
 
     KeyValue *(*findByte)(struct NECollection *self, NEByte value);
     KeyValue *(*findInteger)(struct NECollection *self, NEInteger value);
@@ -47,6 +49,7 @@ struct NECollection {
     KeyValue *(*findPointer)(struct NECollection *self, NEPointer value);
     KeyValue *(*findCollection)(struct NECollection *self, NECollection *value);
     KeyValue *(*findMapNode)(struct NECollection *self, NEMapNode *node);
+    KeyValue *(*findMap)(struct NECollection *self, NEMap *map);
 
     KeyValue *(*at)(struct NECollection *self, NEInteger index);
     NECollectionByteAtResult (*byteAt)(struct NECollection *self, NEInteger index);
@@ -56,6 +59,7 @@ struct NECollection {
     NECollectionPointerAtResult (*pointerAt)(struct NECollection *self, NEInteger index);
     NECollectionCollectionAtResult (*collectionAt)(struct NECollection *self, NEInteger index);
     NECollectionMapNodeAtResult (*mapNodeAt)(struct NECollection *self, NEInteger index);
+    NECollectionMapAtResult (*mapAt)(struct NECollection *self, NEInteger index);
 
     NEInteger (*count)(struct NECollection *self);
     void (*clear)(struct NECollection *self);
@@ -78,6 +82,7 @@ void NECollectionAddString(NECollection *self, const NEStrPtr value);
 void NECollectionAddPointer(NECollection *self, NEPointer value);
 void NECollectionAddCollection(NECollection *self, NECollection *value);
 void NECollectionAddMapNode(NECollection *self, NEMapNode *node);
+void NECollectionAddMap(NECollection *self, NEMap *map);
 
 NECollection *NECollectionMap(NECollection *self, NECollectionMapper mapper);
 NECollection *NECollectionFilter(NECollection *self, NECollectionValidator validator);
@@ -90,6 +95,7 @@ KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value, NEBoo
 KeyValue *NECollectionFindPointer(NECollection *self, NEPointer value);
 KeyValue *NECollectionFindCollection(NECollection *self, NECollection *value);
 KeyValue *NECollectionFindMapNode(NECollection *self, NEMapNode *node);
+KeyValue *NECollectionFindMap(NECollection *self, NEMap *map);
 
 KeyValue *NECollectionAt(NECollection *self, NEInteger index);
 NECollectionByteAtResult NECollectionByteAt(NECollection *self, NEInteger index);
@@ -99,6 +105,7 @@ NECollectionStringAtResult NECollectionStringAt(NECollection *self, NEInteger in
 NECollectionPointerAtResult NECollectionPointerAt(NECollection *self, NEInteger index);
 NECollectionCollectionAtResult NECollectionCollectionAt(NECollection *self, NEInteger index);
 NECollectionMapNodeAtResult NECollectionMapNodeAt(NECollection *self, NEInteger index);
+NECollectionMapAtResult NECollectionMapAt(NECollection *self, NEInteger index);
 
 NEInteger NECollectionCount(NECollection *self);
 void NECollectionClear(NECollection *self);
@@ -139,6 +146,11 @@ typedef struct NECollectionMapNodeAtResult {
   NEBool found;
   NEMapNode *value;
 } NECollectionMapNodeAtResult;
+
+typedef struct NECollectionMapAtResult {
+  NEBool found;
+  NEMap *value;
+} NECollectionMapAtResult;
 
 typedef struct NECollectionMapResult {
   KeyValue value;

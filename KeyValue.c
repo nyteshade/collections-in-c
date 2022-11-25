@@ -64,6 +64,26 @@ KeyValue CreateKeyValueCollection(NECollection *collection) {
   return result;
 }
 
+KeyValue CreateKeyValueMapNode(NEMapNode *mapNode) {
+  KeyValue result;
+
+  result.type = NE_MAPNODE;
+  result.data.mapNode = mapNode;
+  result.length = sizeof(NEMapNode *);
+
+  return result;
+}
+
+KeyValue CreateKeyValueMap(NEMap *map) {
+  KeyValue result;
+
+  result.type = NE_MAP;
+  result.data.map = map;
+  result.length = sizeof(NEMap *);
+
+  return result;
+}
+
 NEByte KeyValueGetByte(KeyValue *keyValue) {
   return keyValue->data.byte;
 }
@@ -92,6 +112,10 @@ NEMapNode *KeyValueGetMapNode(KeyValue *keyValue) {
   return keyValue->data.mapNode;
 }
 
+NEMap *KeyValueGetMap(KeyValue *keyValue) {
+  return keyValue->data.map;
+}
+
 NEBool CompareKeyValues(KeyValue *left, KeyValue *right) {
   if (left->type != right->type) return 0;
 
@@ -103,6 +127,7 @@ NEBool CompareKeyValues(KeyValue *left, KeyValue *right) {
     case NE_BYTE: return left->data.byte == right->data.byte;
     case NE_COLLECTION: return left->data.collection == right->data.collection;
     case NE_MAPNODE: return left->data.mapNode == right->data.mapNode;
+    case NE_MAP: return left->data.map == right->data.map;
   }
 }
 
@@ -116,6 +141,7 @@ void SPrintKeyValueStruct(char *buffer, const NEStrPtr title, KeyValue kv) {
     case NE_POINTER: sprintf(buffer, "%sType: Pointer  Data: %lx  ", buffer, (NEULong)kv.data.pointer); break;
     case NE_COLLECTION: sprintf(buffer, "%sType: Collection  Data: %lx  ", buffer, (NEULong)kv.data.collection); break;
     case NE_MAPNODE: sprintf(buffer, "%sType: MapNode  Data: %lx  ", buffer, (NEULong)kv.data.mapNode); break;
+    case NE_MAP: sprintf(buffer, "%sType: Map  Data: %lx  ", buffer, (NEULong)kv.data.map); break;
   }  
   sprintf(buffer, "%sSize: %ld)\n", buffer, kv.length);
 }

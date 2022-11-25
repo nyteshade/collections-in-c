@@ -22,6 +22,7 @@ typedef struct NEMap {
   void (*setByteString)(struct NEMap *map, NEByte key, NEStrPtr value);
   void (*setBytePointer)(struct NEMap *map, NEByte key, NEPointer value);
   void (*setByteCollection)(struct NEMap *map, NEByte key, NECollection *value);
+  void (*setByteMap)(struct NEMap *map, NEByte key, NEMap *value);
 
   void (*setIntegerByte)(struct NEMap *map, NEInteger key, NEByte value);
   void (*setIntegerInteger)(struct NEMap *map, NEInteger key, NEInteger value);
@@ -29,6 +30,7 @@ typedef struct NEMap {
   void (*setIntegerString)(struct NEMap *map, NEInteger key, NEStrPtr value);
   void (*setIntegerPointer)(struct NEMap *map, NEInteger key, NEPointer value);
   void (*setIntegerCollection)(struct NEMap *map, NEInteger key, NECollection *value);
+  void (*setIntegerMap)(struct NEMap *map, NEInteger key, NEMap *value);
 
   void (*setDecimalByte)(struct NEMap *map, NEDecimal key, NEByte value);
   void (*setDecimalInteger)(struct NEMap *map, NEDecimal key, NEInteger value);
@@ -36,6 +38,7 @@ typedef struct NEMap {
   void (*setDecimalString)(struct NEMap *map, NEDecimal key, NEStrPtr value);
   void (*setDecimalPointer)(struct NEMap *map, NEDecimal key, NEPointer value);
   void (*setDecimalCollection)(struct NEMap *map, NEDecimal key, NECollection *value);
+  void (*setDecimalMap)(struct NEMap *map, NEDecimal key, NEMap *value);
 
   void (*setStringByte)(struct NEMap *map, NEStrPtr key, NEByte value);
   void (*setStringInteger)(struct NEMap *map, NEStrPtr key, NEInteger value);
@@ -43,6 +46,7 @@ typedef struct NEMap {
   void (*setStringString)(struct NEMap *map, NEStrPtr key, NEStrPtr value);
   void (*setStringPointer)(struct NEMap *map, NEStrPtr key, NEPointer value);
   void (*setStringCollection)(struct NEMap *map, NEStrPtr key, NECollection *value);
+  void (*setStringMap)(struct NEMap *map, NEStrPtr key, NEMap *value);
 
   void (*setPointerByte)(struct NEMap *map, NEPointer key, NEByte value);
   void (*setPointerInteger)(struct NEMap *map, NEPointer key, NEInteger value);
@@ -50,6 +54,7 @@ typedef struct NEMap {
   void (*setPointerString)(struct NEMap *map, NEPointer key, NEStrPtr value);
   void (*setPointerPointer)(struct NEMap *map, NEPointer key, NEPointer value);
   void (*setPointerCollection)(struct NEMap *map, NEPointer key, NECollection *value);
+  void (*setPointerMap)(struct NEMap *map, NEPointer key, NEMap *value);
 
   void (*setCollectionByte)(struct NEMap *map, NECollection *key, NEByte value);
   void (*setCollectionInteger)(struct NEMap *map, NECollection *key, NEInteger value);
@@ -57,6 +62,15 @@ typedef struct NEMap {
   void (*setCollectionString)(struct NEMap *map, NECollection *key, NEStrPtr value);
   void (*setCollectionPointer)(struct NEMap *map, NECollection *key, NEPointer value);
   void (*setCollectionCollection)(struct NEMap *map, NECollection *key, NECollection *value);
+  void (*setCollectionMap)(struct NEMap *map, NECollection *key, NEMap *value);
+
+  void (*setMapByte)(struct NEMap *map, NEMap *key, NEByte value);
+  void (*setMapInteger)(struct NEMap *map, NEMap *key, NEInteger value);
+  void (*setMapDecimal)(struct NEMap *map, NEMap *key, NEDecimal value);
+  void (*setMapString)(struct NEMap *map, NEMap *key, NEStrPtr value);
+  void (*setMapPointer)(struct NEMap *map, NEMap *key, NEPointer value);
+  void (*setMapCollection)(struct NEMap *map, NEMap *key, NECollection *value);
+  void (*setMapMap)(struct NEMap *map, NEMap *key, NEMap *value);
 
   NEULong (*countEntries)(struct NEMap *map);
   void (*freeMap)(struct NEMap *map);
@@ -84,6 +98,7 @@ void NEMapSetByteDecimal(NEMap *map, NEByte key, NEDecimal value);
 void NEMapSetByteString(NEMap *map, NEByte key, NEStrPtr value);
 void NEMapSetBytePointer(NEMap *map, NEByte key, NEPointer value);
 void NEMapSetByteCollection(NEMap *map, NEByte key, NECollection *value);
+void NEMapSetByteMap(NEMap *map, NEByte key, NEMap *value);
 
 void NEMapSetIntegerByte(NEMap *map, NEInteger key, NEByte value);
 void NEMapSetIntegerInteger(NEMap *map, NEInteger key, NEInteger value);
@@ -91,6 +106,7 @@ void NEMapSetIntegerDecimal(NEMap *map, NEInteger key, NEDecimal value);
 void NEMapSetIntegerString(NEMap *map, NEInteger key, NEStrPtr value);
 void NEMapSetIntegerPointer(NEMap *map, NEInteger key, NEPointer value);
 void NEMapSetIntegerCollection(NEMap *map, NEInteger key, NECollection *value);
+void NEMapSetIntegerMap(NEMap *map, NEInteger key, NEMap *value);
 
 void NEMapSetDecimalByte(NEMap *map, NEDecimal key, NEByte value);
 void NEMapSetDecimalInteger(NEMap *map, NEDecimal key, NEInteger value);
@@ -98,6 +114,7 @@ void NEMapSetDecimalDecimal(NEMap *map, NEDecimal key, NEDecimal value);
 void NEMapSetDecimalString(NEMap *map, NEDecimal key, NEStrPtr value);
 void NEMapSetDecimalPointer(NEMap *map, NEDecimal key, NEPointer value);
 void NEMapSetDecimalCollection(NEMap *map, NEDecimal key, NECollection *value);
+void NEMapSetDecimalMap(NEMap *map, NEDecimal key, NEMap *value);
 
 void NEMapSetStringByte(NEMap *map, NEStrPtr key, NEByte value);
 void NEMapSetStringInteger(NEMap *map, NEStrPtr key, NEInteger value);
@@ -105,6 +122,7 @@ void NEMapSetStringDecimal(NEMap *map, NEStrPtr key, NEDecimal value);
 void NEMapSetStringString(NEMap *map, NEStrPtr key, NEStrPtr value);
 void NEMapSetStringPointer(NEMap *map, NEStrPtr key, NEPointer value);
 void NEMapSetStringCollection(NEMap *map, NEStrPtr key, NECollection *value);
+void NEMapSetStringMap(NEMap *map, NEStrPtr key, NEMap *value);
 
 void NEMapSetPointerByte(NEMap *map, NEPointer key, NEByte value);
 void NEMapSetPointerInteger(NEMap *map, NEPointer key, NEInteger value);
@@ -112,6 +130,7 @@ void NEMapSetPointerDecimal(NEMap *map, NEPointer key, NEDecimal value);
 void NEMapSetPointerString(NEMap *map, NEPointer key, NEStrPtr value);
 void NEMapSetPointerPointer(NEMap *map, NEPointer key, NEPointer value);
 void NEMapSetPointerCollection(NEMap *map, NEPointer key, NECollection *value);
+void NEMapSetPointerMap(NEMap *map, NEPointer key, NEMap *value);
 
 void NEMapSetCollectionByte(NEMap *map, NECollection *key, NEByte value);
 void NEMapSetCollectionInteger(NEMap *map, NECollection *key, NEInteger value);
@@ -119,6 +138,15 @@ void NEMapSetCollectionDecimal(NEMap *map, NECollection *key, NEDecimal value);
 void NEMapSetCollectionString(NEMap *map, NECollection *key, NEStrPtr value);
 void NEMapSetCollectionPointer(NEMap *map, NECollection *key, NEPointer value);
 void NEMapSetCollectionCollection(NEMap *map, NECollection *key, NECollection *value);
+void NEMapSetCollectionMap(NEMap *map, NECollection *key, NEMap *value);
+
+void NEMapSetMapByte(NEMap *map, NEMap *key, NEByte value);
+void NEMapSetMapInteger(NEMap *map, NEMap *key, NEInteger value);
+void NEMapSetMapDecimal(NEMap *map, NEMap *key, NEDecimal value);
+void NEMapSetMapString(NEMap *map, NEMap *key, NEStrPtr value);
+void NEMapSetMapPointer(NEMap *map, NEMap *key, NEPointer value);
+void NEMapSetMapCollection(NEMap *map, NEMap *key, NECollection *value);
+void NEMapSetMapMap(NEMap *map, NEMap *key, NEMap *value);
 
 void NEMapFree(NEMap *map);
 

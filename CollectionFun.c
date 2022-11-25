@@ -120,7 +120,11 @@ void printTypesAndValues(KeyValue *value, NEULong index) {
       break;
     case NE_MAPNODE:
       sprintf(type, "Map Node (%d)", value->type);
-      
+      sprintf(string, "%p", value->data.mapNode);
+      break;
+    case NE_MAP:
+      sprintf(type, "Map (%d)", value->type);
+      sprintf(string, "%p", value->data.map);
       break;
   }
   string[255] = '\0';
@@ -157,6 +161,12 @@ NECollectionMapResult mapToInteger(KeyValue *value, NEULong index) {
       break;
     case NE_COLLECTION:
       result.value.data.integer = (NEULong)value->data.collection;
+      break;
+    case NE_MAPNODE:
+      result.value.data.integer = (NEULong)value->data.mapNode;
+      break;
+    case NE_MAP:
+      result.value.data.integer = (NEULong)value->data.map;
       break;
     default:
       break;
