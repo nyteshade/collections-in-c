@@ -7,6 +7,7 @@
 int main(int argc, char **argv) {
   unsigned long hashsize = 5;
   NEMap *map = NECreateMap(hashsize);
+  NEMap *map2 = NECreateMap(20);
   NEMapNode *node;
   NECollection *set = 0L;
   unsigned long size = 0;
@@ -57,9 +58,15 @@ int main(int argc, char **argv) {
   map->setStringInteger(map, "namez", 1);
   printf("Getting \"namez\" from map -> %ld\n", map->getStringInteger(map, "namez"));
 
-  printf("Size is %ld\n", map->countEntries(map));
+  printf("  Setting submap \"name\" to \"Brie\"\n");
+  map2->setStringString(map2, "name", "Brie");
+  printf("  Getting submap \"name\" from submap -> %s\n", map2->getStringString(map2, "name"));
+  printf("Setting \"submap\" (%p) to map\n", map2);
+  map->setStringMap(map, "submap", map2);
+  printf("  Getting \"submap\" from map -> %p\n", map->getStringMap(map, "submap"));
+  printf("  Getting name from submap -> %s\n", map->getStringMap(map, "submap")->getStringString(map->getStringMap(map, "submap"), "name"));
 
-  //node = map->data[index]->data;
+  printf("Size is %ld\n", map->countEntries(map));
 
   printf("\nWe have a map with %ld entries\n", map->countEntries(map));
 
@@ -75,6 +82,9 @@ int main(int argc, char **argv) {
     }
     NECollectionFree(set);
   }
+
+  NEMapFree(map);
+  NEMapFree(map2);
 
   return 0;
 }
