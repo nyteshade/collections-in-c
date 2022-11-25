@@ -185,6 +185,62 @@ NEMap *NECreateMap(unsigned long hashLanes) {
   map->entryCounts = calloc(hashLanes, sizeof(unsigned long));
   map->size = hashLanes;
 
+  map->getByteByte = NEMapGetByteByte;
+  map->getByteInteger = NEMapGetByteInteger;
+  map->getByteDecimal = NEMapGetByteDecimal;
+  map->getByteString = NEMapGetByteString;
+  map->getBytePointer = NEMapGetBytePointer;
+  map->getByteCollection = NEMapGetByteCollection;
+  map->getByteMap = NEMapGetByteMap;
+
+  map->getIntegerByte = NEMapGetIntegerByte;
+  map->getIntegerInteger = NEMapGetIntegerInteger;
+  map->getIntegerDecimal = NEMapGetIntegerDecimal;
+  map->getIntegerString = NEMapGetIntegerString;
+  map->getIntegerPointer = NEMapGetIntegerPointer;
+  map->getIntegerCollection = NEMapGetIntegerCollection;
+  map->getIntegerMap = NEMapGetIntegerMap;
+
+  map->getDecimalByte = NEMapGetDecimalByte;
+  map->getDecimalInteger = NEMapGetDecimalInteger;
+  map->getDecimalDecimal = NEMapGetDecimalDecimal;
+  map->getDecimalString = NEMapGetDecimalString;
+  map->getDecimalPointer = NEMapGetDecimalPointer;
+  map->getDecimalCollection = NEMapGetDecimalCollection;
+  map->getDecimalMap = NEMapGetDecimalMap;
+
+  map->getStringByte = NEMapGetStringByte;
+  map->getStringInteger = NEMapGetStringInteger;
+  map->getStringDecimal = NEMapGetStringDecimal;
+  map->getStringString = NEMapGetStringString;
+  map->getStringPointer = NEMapGetStringPointer;
+  map->getStringCollection = NEMapGetStringCollection;
+  map->getStringMap = NEMapGetStringMap;
+
+  map->getPointerByte = NEMapGetPointerByte;
+  map->getPointerInteger = NEMapGetPointerInteger;
+  map->getPointerDecimal = NEMapGetPointerDecimal;
+  map->getPointerString = NEMapGetPointerString;
+  map->getPointerPointer = NEMapGetPointerPointer;
+  map->getPointerCollection = NEMapGetPointerCollection;
+  map->getPointerMap = NEMapGetPointerMap;
+
+  map->getCollectionByte = NEMapGetCollectionByte;
+  map->getCollectionInteger = NEMapGetCollectionInteger;
+  map->getCollectionDecimal = NEMapGetCollectionDecimal;
+  map->getCollectionString = NEMapGetCollectionString;
+  map->getCollectionPointer = NEMapGetCollectionPointer;
+  map->getCollectionCollection = NEMapGetCollectionCollection;
+  map->getCollectionMap = NEMapGetCollectionMap;
+
+  map->getMapByte = NEMapGetMapByte;
+  map->getMapInteger = NEMapGetMapInteger;
+  map->getMapDecimal = NEMapGetMapDecimal;
+  map->getMapString = NEMapGetMapString;
+  map->getMapPointer = NEMapGetMapPointer;
+  map->getMapCollection = NEMapGetMapCollection;
+  map->getMapMap = NEMapGetMapMap;
+  
   map->setByteByte = NEMapSetByteByte;
   map->setByteInteger = NEMapSetByteInteger;
   map->setByteDecimal = NEMapSetByteDecimal;
@@ -245,6 +301,514 @@ NEMap *NECreateMap(unsigned long hashLanes) {
   map->freeMap = NEMapFree;
 
   return map;
+}
+
+NEMapNode *NEMapGetNode(NEMap *map, KeyValue key) {
+  unsigned long hash = ne_hash_keyvalue(key);
+  unsigned long index = hash % map->size;
+  NEMapNode *node = map->data[index];
+
+  if (!node) {
+    return NULL;
+  }
+
+  for (NEMapNode *cur = node; cur; cur = (NEMapNode*)cur->node.next) {
+    if (cur->hash == ne_hash_keyvalue(key)) {
+      return cur;
+    }
+  }
+
+  return NULL;
+}
+
+NEByte NEMapGetByteByte(NEMap *map, NEByte key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueByte(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.byte;
+}
+
+NEInteger NEMapGetByteInteger(NEMap *map, NEByte key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueByte(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.integer;
+}
+
+NEDecimal NEMapGetByteDecimal(NEMap *map, NEByte key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueByte(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.decimal;
+}
+
+NEStrPtr NEMapGetByteString(NEMap *map, NEByte key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueByte(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.string;
+}
+
+NEPointer NEMapGetBytePointer(NEMap *map, NEByte key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueByte(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.pointer;
+}
+
+NECollection *NEMapGetByteCollection(NEMap *map, NEByte key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueByte(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.collection;
+}
+
+NEMap *NEMapGetByteMap(NEMap *map, NEByte key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueByte(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.map;
+}
+
+NEByte NEMapGetIntegerByte(NEMap *map, NEInteger key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueInteger(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.byte;
+}
+
+NEInteger NEMapGetIntegerInteger(NEMap *map, NEInteger key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueInteger(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.integer;
+}
+
+NEDecimal NEMapGetIntegerDecimal(NEMap *map, NEInteger key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueInteger(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.decimal;
+}
+
+NEStrPtr NEMapGetIntegerString(NEMap *map, NEInteger key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueInteger(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.string;
+}
+
+NEPointer NEMapGetIntegerPointer(NEMap *map, NEInteger key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueInteger(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.pointer;
+}
+
+NECollection *NEMapGetIntegerCollection(NEMap *map, NEInteger key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueInteger(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.collection;
+}
+
+NEMap *NEMapGetIntegerMap(NEMap *map, NEInteger key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueInteger(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.map;
+}
+
+NEByte NEMapGetDecimalByte(NEMap *map, NEDecimal key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueDecimal(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.byte;
+}
+
+NEInteger NEMapGetDecimalInteger(NEMap *map, NEDecimal key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueDecimal(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.integer;
+}
+
+NEDecimal NEMapGetDecimalDecimal(NEMap *map, NEDecimal key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueDecimal(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.decimal;
+}
+
+NEStrPtr NEMapGetDecimalString(NEMap *map, NEDecimal key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueDecimal(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.string;
+}
+
+NEPointer NEMapGetDecimalPointer(NEMap *map, NEDecimal key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueDecimal(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.pointer;
+}
+
+NECollection *NEMapGetDecimalCollection(NEMap *map, NEDecimal key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueDecimal(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.collection;
+}
+
+NEMap *NEMapGetDecimalMap(NEMap *map, NEDecimal key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueDecimal(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.map;
+}
+
+NEByte NEMapGetStringByte(NEMap *map, NEStrPtr key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueString(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.byte;
+}
+
+NEInteger NEMapGetStringInteger(NEMap *map, NEStrPtr key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueString(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.integer;
+}
+
+NEDecimal NEMapGetStringDecimal(NEMap *map, NEStrPtr key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueString(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.decimal;
+}
+
+NEStrPtr NEMapGetStringString(NEMap *map, NEStrPtr key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueString(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.string;
+}
+
+NEPointer NEMapGetStringPointer(NEMap *map, NEStrPtr key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueString(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.pointer;
+}
+
+NECollection *NEMapGetStringCollection(NEMap *map, NEStrPtr key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueString(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.collection;
+}
+
+NEMap *NEMapGetStringMap(NEMap *map, NEStrPtr key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueString(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.map;
+}
+
+NEByte NEMapGetPointerByte(NEMap *map, NEPointer key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValuePointer(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.byte;
+}
+
+NEInteger NEMapGetPointerInteger(NEMap *map, NEPointer key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValuePointer(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.integer;
+}
+
+NEDecimal NEMapGetPointerDecimal(NEMap *map, NEPointer key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValuePointer(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.decimal;
+}
+
+NEStrPtr NEMapGetPointerString(NEMap *map, NEPointer key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValuePointer(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.string;
+}
+
+NEPointer NEMapGetPointerPointer(NEMap *map, NEPointer key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValuePointer(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.pointer;
+}
+
+NECollection *NEMapGetPointerCollection(NEMap *map, NEPointer key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValuePointer(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.collection;
+}
+
+NEMap *NEMapGetPointerMap(NEMap *map, NEPointer key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValuePointer(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.map;
+}
+
+NEByte NEMapGetCollectionByte(NEMap *map, NECollection *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueCollection(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.byte;
+}
+
+NEInteger NEMapGetCollectionInteger(NEMap *map, NECollection *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueCollection(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.integer;
+}
+
+NEDecimal NEMapGetCollectionDecimal(NEMap *map, NECollection *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueCollection(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.decimal;
+}
+
+NEStrPtr NEMapGetCollectionString(NEMap *map, NECollection *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueCollection(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.string;
+}
+
+NEPointer NEMapGetCollectionPointer(NEMap *map, NECollection *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueCollection(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.pointer;
+}
+
+NECollection *NEMapGetCollectionCollection(NEMap *map, NECollection *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueCollection(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.collection;
+}
+
+NEMap *NEMapGetCollectionMap(NEMap *map, NECollection *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueCollection(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.map;
+}
+
+NEByte NEMapGetMapByte(NEMap *map, NEMap *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueMap(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.byte;
+}
+
+NEInteger NEMapGetMapInteger(NEMap *map, NEMap *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueMap(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.integer;
+}
+
+NEDecimal NEMapGetMapDecimal(NEMap *map, NEMap *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueMap(key));
+
+  if (!node) {
+    return 0;
+  }
+
+  return node->value.data.decimal;
+}
+
+NEStrPtr NEMapGetMapString(NEMap *map, NEMap *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueMap(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.string;
+}
+
+NEPointer NEMapGetMapPointer(NEMap *map, NEMap *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueMap(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.pointer;
+}
+
+NECollection *NEMapGetMapCollection(NEMap *map, NEMap *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueMap(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.collection;
+}
+
+NEMap *NEMapGetMapMap(NEMap *map, NEMap *key) {
+  NEMapNode *node = NEMapGetNode(map, CreateKeyValueMap(key));
+
+  if (!node) {
+    return NULL;
+  }
+
+  return node->value.data.map;
 }
 
 void NEMapSetByteByte(NEMap *map, unsigned char key, unsigned char value) {

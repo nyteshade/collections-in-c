@@ -16,6 +16,62 @@ typedef struct NEMap {
   NEULong *entryCounts;
   NEULong size;
 
+  NEByte (*getByteByte)(NEMap *map, NEByte key);
+  NEInteger (*getByteInteger)(NEMap *map, NEByte key);
+  NEDecimal (*getByteDecimal)(NEMap *map, NEByte key);
+  NEStrPtr (*getByteString)(NEMap *map, NEByte key);
+  NEPointer (*getBytePointer)(NEMap *map, NEByte key);
+  NECollection *(*getByteCollection)(NEMap *map, NEByte key);
+  NEMap *(*getByteMap)(NEMap *map, NEByte key);
+
+  NEByte (*getIntegerByte)(NEMap *map, NEInteger key);
+  NEInteger (*getIntegerInteger)(NEMap *map, NEInteger key);
+  NEDecimal (*getIntegerDecimal)(NEMap *map, NEInteger key);
+  NEStrPtr (*getIntegerString)(NEMap *map, NEInteger key);
+  NEPointer (*getIntegerPointer)(NEMap *map, NEInteger key);
+  NECollection *(*getIntegerCollection)(NEMap *map, NEInteger key);
+  NEMap *(*getIntegerMap)(NEMap *map, NEInteger key);
+
+  NEByte (*getDecimalByte)(NEMap *map, NEDecimal key);
+  NEInteger (*getDecimalInteger)(NEMap *map, NEDecimal key);
+  NEDecimal (*getDecimalDecimal)(NEMap *map, NEDecimal key);
+  NEStrPtr (*getDecimalString)(NEMap *map, NEDecimal key);
+  NEPointer (*getDecimalPointer)(NEMap *map, NEDecimal key);
+  NECollection *(*getDecimalCollection)(NEMap *map, NEDecimal key);
+  NEMap *(*getDecimalMap)(NEMap *map, NEDecimal key);
+
+  NEByte (*getStringByte)(NEMap *map, NEStrPtr key);
+  NEInteger (*getStringInteger)(NEMap *map, NEStrPtr key);
+  NEDecimal (*getStringDecimal)(NEMap *map, NEStrPtr key);
+  NEStrPtr (*getStringString)(NEMap *map, NEStrPtr key);
+  NEPointer (*getStringPointer)(NEMap *map, NEStrPtr key);
+  NECollection *(*getStringCollection)(NEMap *map, NEStrPtr key);
+  NEMap *(*getStringMap)(NEMap *map, NEStrPtr key);
+
+  NEByte (*getPointerByte)(NEMap *map, NEPointer key);
+  NEInteger (*getPointerInteger)(NEMap *map, NEPointer key);
+  NEDecimal (*getPointerDecimal)(NEMap *map, NEPointer key);
+  NEStrPtr (*getPointerString)(NEMap *map, NEPointer key);
+  NEPointer (*getPointerPointer)(NEMap *map, NEPointer key);
+  NECollection *(*getPointerCollection)(NEMap *map, NEPointer key);
+  NEMap *(*getPointerMap)(NEMap *map, NEPointer key);
+
+  NEByte (*getCollectionByte)(NEMap *map, NECollection *key);
+  NEInteger (*getCollectionInteger)(NEMap *map, NECollection *key);
+  NEDecimal (*getCollectionDecimal)(NEMap *map, NECollection *key);
+  NEStrPtr (*getCollectionString)(NEMap *map, NECollection *key);
+  NEPointer (*getCollectionPointer)(NEMap *map, NECollection *key);
+  NECollection *(*getCollectionCollection)(NEMap *map, NECollection *key);
+  NEMap *(*getCollectionMap)(NEMap *map, NECollection *key);
+
+  NEByte (*getMapByte)(NEMap *map, NEMap *key);
+  NEInteger (*getMapInteger)(NEMap *map, NEMap *key);
+  NEDecimal (*getMapDecimal)(NEMap *map, NEMap *key);
+  NEStrPtr (*getMapString)(NEMap *map, NEMap *key);
+  NEPointer (*getMapPointer)(NEMap *map, NEMap *key);
+  NECollection *(*getMapCollection)(NEMap *map, NEMap *key);
+  NEMap *(*getMapMap)(NEMap *map, NEMap *key);
+
   void (*setByteByte)(struct NEMap *map, NEByte key, NEByte value);
   void (*setByteInteger)(struct NEMap *map, NEByte key, NEInteger value);
   void (*setByteDecimal)(struct NEMap *map, NEByte key, NEDecimal value);
@@ -91,6 +147,62 @@ NEMapNode *NEDuplicateMapNode(NEMapNode *node);
 void NECopyMapNodeData(NEMapNode *dest, NEMapNode *src);
 NECollection *NEGatherMapNodes(NEMap *map);
 NEMap *NECreateMap(NEULong hashLanes);
+
+NEByte NEMapGetByteByte(NEMap *map, NEByte key);
+NEInteger NEMapGetByteInteger(NEMap *map, NEByte key);
+NEDecimal NEMapGetByteDecimal(NEMap *map, NEByte key);
+NEStrPtr NEMapGetByteString(NEMap *map, NEByte key);
+NEPointer NEMapGetBytePointer(NEMap *map, NEByte key);
+NECollection *NEMapGetByteCollection(NEMap *map, NEByte key);
+NEMap *NEMapGetByteMap(NEMap *map, NEByte key);
+
+NEByte NEMapGetIntegerByte(NEMap *map, NEInteger key);
+NEInteger NEMapGetIntegerInteger(NEMap *map, NEInteger key);
+NEDecimal NEMapGetIntegerDecimal(NEMap *map, NEInteger key);
+NEStrPtr NEMapGetIntegerString(NEMap *map, NEInteger key);
+NEPointer NEMapGetIntegerPointer(NEMap *map, NEInteger key);
+NECollection *NEMapGetIntegerCollection(NEMap *map, NEInteger key);
+NEMap *NEMapGetIntegerMap(NEMap *map, NEInteger key);
+
+NEByte NEMapGetDecimalByte(NEMap *map, NEDecimal key);
+NEInteger NEMapGetDecimalInteger(NEMap *map, NEDecimal key);
+NEDecimal NEMapGetDecimalDecimal(NEMap *map, NEDecimal key);
+NEStrPtr NEMapGetDecimalString(NEMap *map, NEDecimal key);
+NEPointer NEMapGetDecimalPointer(NEMap *map, NEDecimal key);
+NECollection *NEMapGetDecimalCollection(NEMap *map, NEDecimal key);
+NEMap *NEMapGetDecimalMap(NEMap *map, NEDecimal key);
+
+NEByte NEMapGetStringByte(NEMap *map, NEStrPtr key);
+NEInteger NEMapGetStringInteger(NEMap *map, NEStrPtr key);
+NEDecimal NEMapGetStringDecimal(NEMap *map, NEStrPtr key);
+NEStrPtr NEMapGetStringString(NEMap *map, NEStrPtr key);
+NEPointer NEMapGetStringPointer(NEMap *map, NEStrPtr key);
+NECollection *NEMapGetStringCollection(NEMap *map, NEStrPtr key);
+NEMap *NEMapGetStringMap(NEMap *map, NEStrPtr key);
+
+NEByte NEMapGetPointerByte(NEMap *map, NEPointer key);
+NEInteger NEMapGetPointerInteger(NEMap *map, NEPointer key);
+NEDecimal NEMapGetPointerDecimal(NEMap *map, NEPointer key);
+NEStrPtr NEMapGetPointerString(NEMap *map, NEPointer key);
+NEPointer NEMapGetPointerPointer(NEMap *map, NEPointer key);
+NECollection *NEMapGetPointerCollection(NEMap *map, NEPointer key);
+NEMap *NEMapGetPointerMap(NEMap *map, NEPointer key);
+
+NEByte NEMapGetCollectionByte(NEMap *map, NECollection *key);
+NEInteger NEMapGetCollectionInteger(NEMap *map, NECollection *key);
+NEDecimal NEMapGetCollectionDecimal(NEMap *map, NECollection *key);
+NEStrPtr NEMapGetCollectionString(NEMap *map, NECollection *key);
+NEPointer NEMapGetCollectionPointer(NEMap *map, NECollection *key);
+NECollection *NEMapGetCollectionCollection(NEMap *map, NECollection *key);
+NEMap *NEMapGetCollectionMap(NEMap *map, NECollection *key);
+
+NEByte NEMapGetMapByte(NEMap *map, NEMap *key);
+NEInteger NEMapGetMapInteger(NEMap *map, NEMap *key);
+NEDecimal NEMapGetMapDecimal(NEMap *map, NEMap *key);
+NEStrPtr NEMapGetMapString(NEMap *map, NEMap *key);
+NEPointer NEMapGetMapPointer(NEMap *map, NEMap *key);
+NECollection *NEMapGetMapCollection(NEMap *map, NEMap *key);
+NEMap *NEMapGetMapMap(NEMap *map, NEMap *key);
 
 void NEMapSetByteByte(NEMap *map, NEByte key, NEByte value);
 void NEMapSetByteInteger(NEMap *map, NEByte key, NEInteger value);

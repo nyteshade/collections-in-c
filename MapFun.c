@@ -14,37 +14,48 @@ int main(int argc, char **argv) {
   unsigned long index = ne_hash_keyvalue(CreateKeyValueByte('a')) % hashsize;
 
   printf("Hash value for 'a' is %ld\n", ne_hash_keyvalue(CreateKeyValueByte('a')));
-  printf("Hash index for 'a' is %ld\n\n", index);
+  printf("Hash index for 'a' is %ld\n", index);
+  printf("Size of an empty map is %ld bytes\n\n", sizeof(NEMap));
 
   printf("Setting a -> b in map\n");
   map->setByteByte(map, 'a', 'b');
+  printf("Getting a from map -> %c\n", map->getByteByte(map, 'a'));
 
   printf("Setting b -> a in map\n");
   map->setByteByte(map, 'b', 'a');
+  printf("Getting b from map -> %c\n", map->getByteByte(map, 'b'));
 
   printf("Setting apple to a in map\n");
   map->setStringByte(map, "apple", 'a');
+  printf("Getting apple from map -> %c\n", map->getStringByte(map, "apple"));
 
   printf("Setting c -> d in map\n");
   map->setByteByte(map, 'c', 'd');
+  printf("Getting c from map -> %c\n", map->getByteByte(map, 'c'));
 
   printf("Setting 't' to \"Brie is great\"\n");
   map->setStringString(map, "t", "Brie is great");
+  printf("Getting 't' from map -> %s\n", map->getStringString(map, "t"));
 
   printf("Setting \"name\" to \"Brie\"\n");
   map->setStringString(map, "name", "Brie");
+  printf("Getting \"name\" from map -> %s\n", map->getStringString(map, "name"));
 
   printf("Setting 12 to \"count\"\n");
   map->setIntegerString(map, 12, "count");
+  printf("Getting 12 from map -> %s\n", map->getIntegerString(map, 12));
 
   printf("Setting \"namae\" to \"Brie\"\n");
   map->setStringString(map, "namae", "Brie");
+  printf("Getting \"namae\" from map -> %s\n", map->getStringString(map, "namae"));
 
   printf("Setting \"names\" to 1\n");
   map->setStringInteger(map, "names", 1);
+  printf("Getting \"names\" from map -> %ld\n", map->getStringInteger(map, "names"));
 
   printf("Setting \"namez\" to 1\n");
   map->setStringInteger(map, "namez", 1);
+  printf("Getting \"namez\" from map -> %ld\n", map->getStringInteger(map, "namez"));
 
   printf("Size is %ld\n", map->countEntries(map));
 
