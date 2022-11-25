@@ -134,7 +134,7 @@ void NECollectionAddCollection(NECollection *self, NECollection *value) {
   }
 }
 
-void NECollectionAddMapNode(NECollection *self, MapNode *value) {
+void NECollectionAddMapNode(NECollection *self, NEMapNode *value) {
   NECollectionItem *item = 0L;
 
   item = calloc(1, sizeof(NECollectionItem));
@@ -270,7 +270,7 @@ KeyValue *NECollectionFindCollection(NECollection *self, NECollection *value) {
   return NULL;
 }
 
-KeyValue *NECollectionFindMapNode(NECollection *self, MapNode *value) {
+KeyValue *NECollectionFindMapNode(NECollection *self, NEMapNode *value) {
   NECollectionItem *item = NULL;
   NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
     if (item->keyValue.type == NE_MAPNODE && item->keyValue.data.mapNode == value) {

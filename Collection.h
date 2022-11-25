@@ -8,7 +8,7 @@
 
 /* Struct and typedef prototypes */
 typedef struct NECollection NECollection;
-typedef struct MapNode MapNode;
+typedef struct NEMapNode NEMapNode;
 
 typedef struct NECollectionByteAtResult NECollectionByteAtResult;
 typedef struct NECollectionIntegerAtResult NECollectionIntegerAtResult;
@@ -38,7 +38,7 @@ struct NECollection {
     void (*addString)(struct NECollection *self, const NEStrPtr value);
     void (*addPointer)(struct NECollection *self, NEPointer value);
     void (*addCollection)(struct NECollection *self, NECollection *value);
-    void (*addMapNode)(struct NECollection *self, MapNode *node);
+    void (*addMapNode)(struct NECollection *self, NEMapNode *node);
 
     KeyValue *(*findByte)(struct NECollection *self, NEByte value);
     KeyValue *(*findInteger)(struct NECollection *self, NEInteger value);
@@ -46,7 +46,7 @@ struct NECollection {
     KeyValue *(*findString)(struct NECollection *self, const NEStrPtr value, NEBool caseSensitive);
     KeyValue *(*findPointer)(struct NECollection *self, NEPointer value);
     KeyValue *(*findCollection)(struct NECollection *self, NECollection *value);
-    KeyValue *(*findMapNode)(struct NECollection *self, MapNode *node);
+    KeyValue *(*findMapNode)(struct NECollection *self, NEMapNode *node);
 
     KeyValue *(*at)(struct NECollection *self, NEInteger index);
     NECollectionByteAtResult (*byteAt)(struct NECollection *self, NEInteger index);
@@ -77,7 +77,7 @@ void NECollectionAddDecimal(NECollection *self, NEDecimal value);
 void NECollectionAddString(NECollection *self, const NEStrPtr value);
 void NECollectionAddPointer(NECollection *self, NEPointer value);
 void NECollectionAddCollection(NECollection *self, NECollection *value);
-void NECollectionAddMapNode(NECollection *self, MapNode *node);
+void NECollectionAddMapNode(NECollection *self, NEMapNode *node);
 
 NECollection *NECollectionMap(NECollection *self, NECollectionMapper mapper);
 NECollection *NECollectionFilter(NECollection *self, NECollectionValidator validator);
@@ -89,7 +89,7 @@ KeyValue *NECollectionFindDecimal(NECollection *self, NEDecimal value);
 KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value, NEBool caseSensitive);
 KeyValue *NECollectionFindPointer(NECollection *self, NEPointer value);
 KeyValue *NECollectionFindCollection(NECollection *self, NECollection *value);
-KeyValue *NECollectionFindMapNode(NECollection *self, MapNode *node);
+KeyValue *NECollectionFindMapNode(NECollection *self, NEMapNode *node);
 
 KeyValue *NECollectionAt(NECollection *self, NEInteger index);
 NECollectionByteAtResult NECollectionByteAt(NECollection *self, NEInteger index);
@@ -137,7 +137,7 @@ typedef struct NECollectionCollectionAtResult {
 
 typedef struct NECollectionMapNodeAtResult {
   NEBool found;
-  MapNode *value;
+  NEMapNode *value;
 } NECollectionMapNodeAtResult;
 
 typedef struct NECollectionMapResult {

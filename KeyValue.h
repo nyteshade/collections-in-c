@@ -4,7 +4,7 @@
 #include "Types.h"
 
 typedef struct NECollection NECollection;
-typedef struct MapNode MapNode;
+typedef struct NEMapNode NEMapNode;
 
 typedef enum KeyValueType {
   NE_BYTE = 0,
@@ -23,7 +23,7 @@ typedef union {
   NEStrPtr string;
   NEPointer pointer;
   NECollection *collection;
-  MapNode *mapNode;
+  NEMapNode *mapNode;
 } KeyValueUnion;
 
 typedef struct KeyValue {
@@ -45,6 +45,7 @@ NEDecimal KeyValueGetDecimal(KeyValue *keyValue);
 NEStrPtr KeyValueGetString(KeyValue *keyValue);
 NEPointer KeyValueGetPointer(KeyValue *keyValue);
 NECollection *KeyValueGetCollection(KeyValue *keyValue);
+NEMapNode *KeyValueGetMapNode(KeyValue *keyValue);
 
 NEBool CompareKeyValues(KeyValue *left, KeyValue *right);
 

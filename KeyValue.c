@@ -88,6 +88,10 @@ NECollection *KeyValueGetCollection(KeyValue *keyValue) {
   return keyValue->data.collection;
 }
 
+NEMapNode *KeyValueGetMapNode(KeyValue *keyValue) {
+  return keyValue->data.mapNode;
+}
+
 NEBool CompareKeyValues(KeyValue *left, KeyValue *right) {
   if (left->type != right->type) return 0;
 

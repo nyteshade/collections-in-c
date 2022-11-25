@@ -6,8 +6,8 @@
 
 int main(int argc, char **argv) {
   unsigned long hashsize = 5;
-  Map *map = CreateMap(hashsize);
-  MapNode *node;
+  NEMap *map = NECreateMap(hashsize);
+  NEMapNode *node;
   NECollection *set = 0L;
   unsigned long size = 0;
   unsigned long i = 0;
@@ -52,15 +52,15 @@ int main(int argc, char **argv) {
 
   printf("\nWe have a map with %ld entries\n", map->countEntries(map));
 
-  PrintMap(map);
+  NEPrintMap(map);
 
-  set = GatherMapNodes(map);
+  set = NEGatherMapNodes(map);
   if (set) {
     size = set->count(set);
     printf("We have a set with %ld entries\n", size);
     for (i = 0; i < size; i++) {
       node = set->mapNodeAt(set, i).value;
-      PrintMapNode("Node", node);
+      NEPrintMapNode("Node", node);
     }
     NECollectionFree(set);
   }
