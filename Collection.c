@@ -1,5 +1,6 @@
 #include "Collection.h"
 #include "Lists.h"
+#include "Map.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -17,12 +18,14 @@ NECollection *NECollectionCreate(void) {
     self->addString = NECollectionAddString;
     self->addPointer = NECollectionAddPointer;
     self->addCollection = NECollectionAddCollection;
+    self->addMapNode = NECollectionAddMapNode;
     self->findByte = NECollectionFindByte;
     self->findInteger = NECollectionFindInteger;
     self->findDecimal = NECollectionFindDecimal;
     self->findString = NECollectionFindString;
     self->findPointer = NECollectionFindPointer;
     self->findCollection = NECollectionFindCollection;
+    self->findMapNode = NECollectionFindMapNode;
     self->at = NECollectionAt;
     self->byteAt = NECollectionByteAt;
     self->integerAt = NECollectionIntegerAt;
@@ -30,12 +33,13 @@ NECollection *NECollectionCreate(void) {
     self->stringAt = NECollectionStringAt;
     self->pointerAt = NECollectionPointerAt;
     self->collectionAt = NECollectionCollectionAt;
+    self->mapNodeAt = NECollectionMapNodeAt;
     self->count = NECollectionCount;
     self->clear = NECollectionClear;
     self->sort = NECollectionSort;
-    self->map = NECollectionMap;
     self->filter = NECollectionFilter;
     self->forEach = NECollectionForEach;
+    self->map = NECollectionMap;
     return self;
 }
 
@@ -126,6 +130,17 @@ void NECollectionAddCollection(NECollection *self, NECollection *value) {
   if (item) {
     item->keyValue.type = NE_COLLECTION;
     item->keyValue.data.collection = value;
+    self->list->addNode(self->list, (NENode *)item);
+  }
+}
+
+void NECollectionAddMapNode(NECollection *self, MapNode *value) {
+  NECollectionItem *item = 0L;
+
+  item = calloc(1, sizeof(NECollectionItem));
+  if (item) {
+    item->keyValue.type = NE_MAPNODE;
+    item->keyValue.data.mapNode = value;
     self->list->addNode(self->list, (NENode *)item);
   }
 }
@@ -255,6 +270,16 @@ KeyValue *NECollectionFindCollection(NECollection *self, NECollection *value) {
   return NULL;
 }
 
+KeyValue *NECollectionFindMapNode(NECollection *self, MapNode *value) {
+  NECollectionItem *item = NULL;
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
+    if (item->keyValue.type == NE_MAPNODE && item->keyValue.data.mapNode == value) {
+      return &item->keyValue;
+    }
+  }
+  return NULL;
+}
+
 KeyValue *NECollectionAt(NECollection *self, NEInteger index) {
   NECollectionItem *item = (NECollectionItem *)NEListGetNodeAtIndex(self->list, index);
   if (item) {
@@ -318,6 +343,16 @@ NECollectionCollectionAtResult NECollectionCollectionAt(NECollection *self, NEIn
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_COLLECTION) {
     result.value = item->data.collection;
+    result.found = NETrue;
+  }
+  return result;
+}
+
+NECollectionMapNodeAtResult NECollectionMapNodeAt(NECollection *self, NEInteger index) {
+  NECollectionMapNodeAtResult result = {NEFalse, NULL};
+  KeyValue *item = NECollectionAt(self, index);
+  if (item && item->type == NE_MAPNODE) {
+    result.value = item->data.mapNode;
     result.found = NETrue;
   }
   return result;

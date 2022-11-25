@@ -66,6 +66,8 @@ int main(int argc, char **argv) {
   printf("Collection 2 is %p\n", collection2);
 
   printf("\nMapping collection (%p) to Integers...", collection);
+  printf("  using mapToInteger (%p)\n", mapToInteger);
+  printf("  collection->map (%p)", collection->map);
   collection2 = collection->map(collection, mapToInteger);
   printf("(%p) generated\n", collection2);
   printf("Collection (%p) Count: %ld\n", collection2, collection2->count(collection2));
@@ -115,6 +117,10 @@ void printTypesAndValues(KeyValue *value, NEULong index) {
     case NE_COLLECTION:
       sprintf(type, "Collection (%d)", value->type);
       sprintf(string, "%p", value->data.collection);
+      break;
+    case NE_MAPNODE:
+      sprintf(type, "Map Node (%d)", value->type);
+      
       break;
   }
   string[255] = '\0';

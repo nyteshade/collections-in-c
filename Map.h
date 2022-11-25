@@ -8,12 +8,11 @@
 /* Struct and typedef prototypes */
 typedef struct Map Map;
 typedef struct MapNode MapNode;
-typedef struct HashDataRowNode HashDataRowNode;
 typedef struct MapNodeSet MapNodeSet;
 
 /* Primary Struct Definition */
 typedef struct Map {
-  HashDataRowNode **data;
+  MapNode **data;
   NEULong *entryCounts;
   NEULong size;
 
@@ -68,12 +67,16 @@ NEULong ne_hash(NEUStrPtr str);
 NEULong ne_hash_keyvalue(KeyValue key);
 NEULong CountMapEntries(Map *map);
 
-void PrintMapNode(const NEStrPtr title, MapNode node);
+void SPrintMapNode(char *buffer, const NEStrPtr title, MapNode *node);
+void PrintMapNode(const NEStrPtr title, MapNode *node);
+void SPrintMap(char *buffer, Map *map);
 void PrintMap(Map *map);
 
-MapNode CreateMapNode(KeyValue key, KeyValue value, NEPointer userDefined);
+MapNode *CreateMapNode(KeyValue key, KeyValue value, NEPointer userDefined);
+MapNode *CopyMapNode(MapNode *node);
+void CopyMapNodeData(MapNode *dest, MapNode *src);
 NECollection *GatherMapNodes(Map *map);
-Map CreateMap(NEULong hashLanes);
+Map *CreateMap(NEULong hashLanes);
 
 /*
 NEByte MapGetByteByte(Map *map, NEByte key);
@@ -165,15 +168,11 @@ void MapFree(Map *map);
 
 /* Struct and typedef definitions */
 typedef struct MapNode {
+  NENode node;
   NEULong hash;
   KeyValue key;
   KeyValue value;
   NEPointer userDefined;
 } MapNode;
-
-typedef struct HashDataRowNode {
-  NENode node;
-  MapNode data;
-} HashDataRowNode;
 
 #endif
