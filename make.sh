@@ -11,3 +11,7 @@ printf "done\n"
 printf "Making collectionfun..."
 gcc -o CollectionFun CollectionFun.c Collection.c Lists.c Types.c KeyValue.c Map.c
 printf "done\n"
+
+printf "Making bitsetfun..."
+gcc -o BitSetFun BitSetFun.c BitSet.c
+printf "done\n"

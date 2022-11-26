@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "NEBitSet.h"
+#include "BitSet.h"
 
 enum BitFlags {
 	FL_DOOR_OPEN = 0,

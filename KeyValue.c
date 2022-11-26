@@ -44,6 +44,16 @@ KeyValue CreateKeyValueString(const NEStrPtr fromString) {
   return result;
 }
 
+KeyValue CreateKeyValueNEString(NEString *fromString) {
+  KeyValue result;
+
+  result.type = NE_NESTRING;
+  result.data.neString = fromString;
+  result.length = fromString->length;
+
+  return result;
+}
+
 KeyValue CreateKeyValuePointer(void *pointer) {
   KeyValue result;
 
@@ -100,6 +110,10 @@ NEStrPtr KeyValueGetString(KeyValue *keyValue) {
   return keyValue->data.string;
 }
 
+NEString *KeyValueGetNEString(KeyValue *keyValue) {
+  return keyValue->data.neString;
+}
+
 NEPointer KeyValueGetPointer(KeyValue *keyValue) {
   return keyValue->data.pointer;
 }
@@ -121,6 +135,7 @@ NEBool CompareKeyValues(KeyValue *left, KeyValue *right) {
 
   switch (left->type) {
     case NE_STRING: return strcmp(left->data.string, right->data.string) == 0 ? 1 : 0;
+    case NE_NESTRING: return NEStringCompare(left->data.neString, right->data.neString) == 0 ? 1 : 0;
     case NE_INTEGER: return left->data.integer == right->data.integer;
     case NE_DECIMAL: return left->data.decimal == right->data.decimal;
     case NE_POINTER: return left->data.pointer == right->data.pointer;
@@ -138,6 +153,7 @@ void SPrintKeyValueStruct(char *buffer, const NEStrPtr title, KeyValue kv) {
     case NE_INTEGER: sprintf(buffer, "%sType: Integer  Data: %ld  ", buffer, kv.data.integer); break;
     case NE_DECIMAL: sprintf(buffer, "%sType: Decimal  Data: %f  ", buffer, kv.data.decimal); break;
     case NE_STRING: sprintf(buffer, "%sType: String  Data: '%s'  ", buffer, kv.data.string); break;
+    case NE_NESTRING: sprintf(buffer, "%sType: NEString  Data: '%s'  ", buffer, kv.data.neString->string); break;
     case NE_POINTER: sprintf(buffer, "%sType: Pointer  Data: %lx  ", buffer, (NEULong)kv.data.pointer); break;
     case NE_COLLECTION: sprintf(buffer, "%sType: Collection  Data: %lx  ", buffer, (NEULong)kv.data.collection); break;
     case NE_MAPNODE: sprintf(buffer, "%sType: MapNode  Data: %lx  ", buffer, (NEULong)kv.data.mapNode); break;

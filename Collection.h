@@ -5,6 +5,7 @@
 #include "Lists.h"
 #include "Types.h"
 #include "Map.h"
+#include "String.h"
 
 /* Struct and typedef prototypes */
 typedef struct NECollection NECollection;
@@ -37,6 +38,7 @@ struct NECollection {
     void (*addInteger)(struct NECollection *self, NEInteger value);
     void (*addDecimal)(struct NECollection *self, NEDecimal value);
     void (*addString)(struct NECollection *self, const NEStrPtr value);
+    void (*addNEString)(struct NECollection *self, NEString *value);
     void (*addPointer)(struct NECollection *self, NEPointer value);
     void (*addCollection)(struct NECollection *self, NECollection *value);
     void (*addMapNode)(struct NECollection *self, NEMapNode *node);
@@ -46,6 +48,7 @@ struct NECollection {
     KeyValue *(*findInteger)(struct NECollection *self, NEInteger value);
     KeyValue *(*findDecimal)(struct NECollection *self, NEDecimal value);
     KeyValue *(*findString)(struct NECollection *self, const NEStrPtr value, NEBool caseSensitive);
+    KeyValue *(*findNEString)(struct NECollection *self, NEString *value, NEBool caseSensitive);
     KeyValue *(*findPointer)(struct NECollection *self, NEPointer value);
     KeyValue *(*findCollection)(struct NECollection *self, NECollection *value);
     KeyValue *(*findMapNode)(struct NECollection *self, NEMapNode *node);
@@ -56,6 +59,7 @@ struct NECollection {
     NECollectionIntegerAtResult (*integerAt)(struct NECollection *self, NEInteger index);
     NECollectionDecimalAtResult (*decimalAt)(struct NECollection *self, NEInteger index);
     NECollectionStringAtResult (*stringAt)(struct NECollection *self, NEInteger index);
+    NECollectionNEStringAtResult (*neStringAt)(struct NECollection *self, NEInteger index);
     NECollectionPointerAtResult (*pointerAt)(struct NECollection *self, NEInteger index);
     NECollectionCollectionAtResult (*collectionAt)(struct NECollection *self, NEInteger index);
     NECollectionMapNodeAtResult (*mapNodeAt)(struct NECollection *self, NEInteger index);
@@ -79,6 +83,7 @@ void NECollectionAddByte(NECollection *self, NEByte value);
 void NECollectionAddInteger(NECollection *self, NEInteger value);
 void NECollectionAddDecimal(NECollection *self, NEDecimal value);
 void NECollectionAddString(NECollection *self, const NEStrPtr value);
+void NECollectionAddNEString(NECollection *self, NEString *value);
 void NECollectionAddPointer(NECollection *self, NEPointer value);
 void NECollectionAddCollection(NECollection *self, NECollection *value);
 void NECollectionAddMapNode(NECollection *self, NEMapNode *node);
@@ -92,6 +97,7 @@ KeyValue *NECollectionFindByte(NECollection *self, NEByte value);
 KeyValue *NECollectionFindInteger(NECollection *self, NEInteger value);
 KeyValue *NECollectionFindDecimal(NECollection *self, NEDecimal value);
 KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value, NEBool caseSensitive);
+KeyValue *NECollectionFindNEString(NECollection *self, NEString *value, NEBool caseSensitive);
 KeyValue *NECollectionFindPointer(NECollection *self, NEPointer value);
 KeyValue *NECollectionFindCollection(NECollection *self, NECollection *value);
 KeyValue *NECollectionFindMapNode(NECollection *self, NEMapNode *node);
@@ -102,6 +108,7 @@ NECollectionByteAtResult NECollectionByteAt(NECollection *self, NEInteger index)
 NECollectionIntegerAtResult NECollectionIntegerAt(NECollection *self, NEInteger index);
 NECollectionDecimalAtResult NECollectionDecimalAt(NECollection *self, NEInteger index);
 NECollectionStringAtResult NECollectionStringAt(NECollection *self, NEInteger index);
+NECollectionNEStringAtResult NECollectionNEStringAt(NECollection *self, NEInteger index);
 NECollectionPointerAtResult NECollectionPointerAt(NECollection *self, NEInteger index);
 NECollectionCollectionAtResult NECollectionCollectionAt(NECollection *self, NEInteger index);
 NECollectionMapNodeAtResult NECollectionMapNodeAt(NECollection *self, NEInteger index);
@@ -131,6 +138,11 @@ typedef struct NECollectionStringAtResult {
   NEBool found;
   NEStrPtr value;
 } NECollectionStringAtResult;
+
+typedef struct NECollectionNEStringAtResult {
+  NEBool found;
+  NEString *value;
+} NECollectionNEStringAtResult;
 
 typedef struct NECollectionPointerAtResult {
   NEBool found;

@@ -16,6 +16,7 @@ NECollection *NECollectionCreate(void) {
     self->addInteger = NECollectionAddInteger;
     self->addDecimal = NECollectionAddDecimal;
     self->addString = NECollectionAddString;
+    self->addNEString = NECollectionAddNEString;
     self->addPointer = NECollectionAddPointer;
     self->addCollection = NECollectionAddCollection;
     self->addMapNode = NECollectionAddMapNode;
@@ -24,6 +25,7 @@ NECollection *NECollectionCreate(void) {
     self->findInteger = NECollectionFindInteger;
     self->findDecimal = NECollectionFindDecimal;
     self->findString = NECollectionFindString;
+    self->findNEString = NECollectionFindNEString;
     self->findPointer = NECollectionFindPointer;
     self->findCollection = NECollectionFindCollection;
     self->findMapNode = NECollectionFindMapNode;
@@ -33,6 +35,7 @@ NECollection *NECollectionCreate(void) {
     self->integerAt = NECollectionIntegerAt;
     self->decimalAt = NECollectionDecimalAt;
     self->stringAt = NECollectionStringAt;
+    self->neStringAt = NECollectionNEStringAt;
     self->pointerAt = NECollectionPointerAt;
     self->collectionAt = NECollectionCollectionAt;
     self->mapNodeAt = NECollectionMapNodeAt;
@@ -111,6 +114,18 @@ void NECollectionAddString(NECollection *self, const NEStrPtr value) {
     item->keyValue.type = NE_STRING;
     item->keyValue.data.string = strdup(value);
     item->keyValue.length = strlen(value);
+    self->list->addNode(self->list, (NENode *)item);
+  }
+}
+
+void NECollectionAddNEString(NECollection *self, NEString *value) {
+  NECollectionItem *item = 0L;
+
+  item = calloc(1, sizeof(NECollectionItem));
+  if (item) {
+    item->keyValue.type = NE_NESTRING;
+    item->keyValue.data.neString = NEStringCreate(value);
+    item->keyValue.length = value->length;
     self->list->addNode(self->list, (NENode *)item);
   }
 }

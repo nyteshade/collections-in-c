@@ -6,12 +6,14 @@
 typedef struct NECollection NECollection;
 typedef struct NEMapNode NEMapNode;
 typedef struct NEMap NEMap;
+typedef struct NEString NEString;
 
 typedef enum KeyValueType {
   NE_BYTE = 0,
   NE_INTEGER,
   NE_DECIMAL,
   NE_STRING,
+  NE_NESTRING,
   NE_POINTER,
   NE_COLLECTION,
   NE_MAPNODE,
@@ -23,6 +25,7 @@ typedef union {
   NEInteger integer;
   NEDecimal decimal;
   NEStrPtr string;
+  NEString *neString;
   NEPointer pointer;
   NECollection *collection;
   NEMapNode *mapNode;
@@ -39,6 +42,7 @@ KeyValue CreateKeyValueByte(NEByte byte);
 KeyValue CreateKeyValueInteger(NEInteger integer);
 KeyValue CreateKeyValueDecimal(NEDecimal decimal);
 KeyValue CreateKeyValueString(const NEStrPtr fromString);
+KeyValue CreateKeyValueNEString(NEString *fromString);
 KeyValue CreateKeyValuePointer(NEPointer pointer);
 KeyValue CreateKeyValueCollection(NECollection *collection);
 KeyValue CreateKeyValueMapNode(NEMapNode *mapNode);
@@ -48,6 +52,7 @@ NEByte KeyValueGetByte(KeyValue *keyValue);
 NEInteger KeyValueGetInteger(KeyValue *keyValue);
 NEDecimal KeyValueGetDecimal(KeyValue *keyValue);
 NEStrPtr KeyValueGetString(KeyValue *keyValue);
+NEString *KeyValueGetNEString(KeyValue *keyValue);
 NEPointer KeyValueGetPointer(KeyValue *keyValue);
 NECollection *KeyValueGetCollection(KeyValue *keyValue);
 NEMapNode *KeyValueGetMapNode(KeyValue *keyValue);
