@@ -35,6 +35,9 @@ ne_hash_keyvalue(KeyValue key) {
     case NE_STRING:
       return ne_hash((unsigned char *)key.data.string);
 
+    case NE_NESTRING:
+      return ne_hash((unsigned char *)key.data.neString->string);
+      
     case NE_MAP:
     case NE_MAPNODE:
     case NE_COLLECTION:

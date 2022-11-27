@@ -3,6 +3,9 @@
 
 #include "KeyValue.h"
 #include "Collection.h"
+#include "String.h"
+
+int NEStringCompare(const NEString *left, const NEString *right);
 
 KeyValue CreateKeyValueByte(NEByte byte) {
   KeyValue result;

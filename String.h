@@ -17,7 +17,9 @@ typedef struct NEString {
   PascalString (*toPascalString)(NEString *self);
 
   char (*charAt)(NEString *self, NEULong index);
-  int (*compare)(NEString *self, NEString *other);
+  int (*compare)(const NEString *self, const NEString *other);
+  int (*compareInsensitive)(const NEString *self, const NEString *other);
+  NEString *(*duplicate)(const NEString *self);
   NEString *(*concat)(NEString *self, NEString *other);
   NEString *(*substring)(NEString *self, NEULong start, NEULong length);
   NEString *(*splice)(NEString *self, NEULong start, NEULong end);
@@ -37,13 +39,17 @@ typedef struct PascalString {
 } PascalString;
 
 NEString *NEStringCreate(const char *string);
-NEString *NEDuplicateNEString(NEString *string);
+NEString *NEDuplicateNEString(const NEString *string);
 NEString *NEStringCreateFromPascalString(const char string[256]);
 void NEStringFree(NEString *s);
 
 char NEStringCharAt(NEString *s, unsigned long index);
-int NEStringCompare(NEString *s, NEString *s2);
+int NEStringCompare(const NEString *left, const NEString *right);
+int NEStringCompareInsensitive(const NEString *left, const NEString *right);
+int NEStringCompareInternals(const NEString *left, const NEString *right, NEBool caseInsensitive);
 NEString *NEStringConcat(NEString *s, NEString *s2);
+NEString *NEStringSubstring(NEString *s, NEULong start, NEULong length);
+NEString *NEStringSplice(NEString *s, NEULong start, NEULong end);
 NEString *NEStringReverse(NEString *s);
 NEString *NEStringSplice(NEString *s, unsigned long start, unsigned long end);
 NEString *NEStringSubstring(NEString *s, unsigned long start, unsigned long length);

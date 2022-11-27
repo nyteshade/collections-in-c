@@ -1,5 +1,6 @@
 #include "String.h"
 #include "Collection.h"
+#include "Lists.h"
 
 #include <ctype.h>
 
@@ -11,6 +12,8 @@ NEString *NEStringCreate(const char *string) {
   s->concat = NEStringConcat;
   s->charAt = NEStringCharAt;
   s->compare = NEStringCompare;
+  s->compareInsensitive = NEStringCompareInsensitive;
+  s->duplicate = NEDuplicateNEString;
   s->reverse = NEStringReverse;
   s->splice = NEStringSplice;
   s->substring = NEStringSubstring;
@@ -26,7 +29,7 @@ NEString *NEStringCreate(const char *string) {
   return s;
 }
 
-NEString *NEDuplicateNEString(NEString *string) {
+NEString *NEDuplicateNEString(const NEString *string) {
   return NEStringCreate(string->string);
 }
 
@@ -54,11 +57,27 @@ NEString *NEStringCreateFromPascalString(const char string[256]) {
 }
 
 char NEStringCharAt(NEString *s, unsigned long index) {
-  return s->string[index];
+  return (char)s->string[index];
 }
 
-int NEStringCompare(NEString *s, NEString *s2) {
-  return strcmp(s->string, s2->string);
+int NEStringCompare(const NEString *left, const NEString *right) {
+  return NEStringCompareInternals(left, right, NEFalse);
+}
+
+int NEStringCompareInsensitive(const NEString *left, const NEString *right) {
+  return NEStringCompareInternals(left, right, NETrue);
+}
+
+int NEStringCompareInternals(const NEString *left, const NEString *right, NEBool caseInsensitive) {
+  if (left->length != right->length) {
+    return left->length - right->length;
+  }
+
+  if (caseInsensitive) {
+    return strcasecmp(left->string, right->string);
+  } else {
+    return strcmp(left->string, right->string);
+  }
 }
 
 PascalString NEStringToPascalString(NEString *s) {

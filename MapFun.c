@@ -4,7 +4,7 @@
 
 #include "Map.h"
 
-int main(int argc, char **argv) {
+int main() {
   unsigned long hashsize = 5;
   NEMap *map = NECreateMap(hashsize);
   NEMap *map2 = NECreateMap(20);
@@ -61,9 +61,9 @@ int main(int argc, char **argv) {
   printf("  Setting submap \"name\" to \"Brie\"\n");
   map2->setStringString(map2, "name", "Brie");
   printf("  Getting submap \"name\" from submap -> %s\n", map2->getStringString(map2, "name"));
-  printf("Setting \"submap\" (%p) to map\n", map2);
+  printf("Setting \"submap\" (%p) to map\n", (NEPointer)map2);
   map->setStringMap(map, "submap", map2);
-  printf("  Getting \"submap\" from map -> %p\n", map->getStringMap(map, "submap"));
+  printf("  Getting \"submap\" from map -> %p\n", (NEPointer)map->getStringMap(map, "submap"));
   printf("  Getting name from submap -> %s\n", map->getStringMap(map, "submap")->getStringString(map->getStringMap(map, "submap"), "name"));
 
   printf("Size is %ld\n", map->countEntries(map));

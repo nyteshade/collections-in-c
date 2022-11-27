@@ -114,6 +114,10 @@ void printTypesAndValues(KeyValue *value, NEULong index) {
       sprintf(type, "String (%d)", value->type);
       sprintf(string, "%s", value->data.string);
       break;
+    case NE_NESTRING:
+      sprintf(type, "NEString (%d)", value->type);
+      sprintf(string, "%s", value->data.neString->string);
+      break;
     case NE_COLLECTION:
       sprintf(type, "Collection (%d)", value->type);
       sprintf(string, "%p", value->data.collection);

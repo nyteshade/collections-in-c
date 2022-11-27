@@ -1,6 +1,7 @@
 #include "Collection.h"
 #include "Lists.h"
 #include "Map.h"
+#include "String.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -124,7 +125,7 @@ void NECollectionAddNEString(NECollection *self, NEString *value) {
   item = calloc(1, sizeof(NECollectionItem));
   if (item) {
     item->keyValue.type = NE_NESTRING;
-    item->keyValue.data.neString = NEStringCreate(value);
+    item->keyValue.data.neString = NEDuplicateNEString((const NEString *)value);
     item->keyValue.length = value->length;
     self->list->addNode(self->list, (NENode *)item);
   }
@@ -280,6 +281,17 @@ KeyValue *NECollectionFindString(NECollection *self, const NEStrPtr value, NEBoo
   }
   return NULL;
 }
+
+KeyValue *NECollectionFindNEString(NECollection *self, NEString *value, NEBool caseSensitive) {
+  NECollectionItem *item = NULL;
+  NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
+    if (item->keyValue.type == NE_NESTRING && NEStringCompare(item->keyValue.data.neString, (const NEString *)value)) {
+      return &item->keyValue;
+    }
+  }
+  return NULL;
+}
+
 KeyValue *NECollectionFindPointer(NECollection *self, NEPointer value) {
   NECollectionItem *item = NULL;
   NEForEachNodeDo(NECollectionItem*, self->list->head, item) {
@@ -362,6 +374,16 @@ NECollectionStringAtResult NECollectionStringAt(NECollection *self, NEInteger in
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_STRING) {
     result.value = item->data.string;
+    result.found = NETrue;
+  }
+  return result;
+}
+
+NECollectionNEStringAtResult NECollectionNEStringAt(NECollection *self, NEInteger index) {
+  NECollectionNEStringAtResult result = {NEFalse, NULL};
+  KeyValue *item = NECollectionAt(self, index);
+  if (item && item->type == NE_NESTRING) {
+    result.value = item->data.neString;
     result.found = NETrue;
   }
   return result;

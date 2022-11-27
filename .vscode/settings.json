@@ -22,7 +22,8 @@
     "utility": "c",
     "__node_handle": "c",
     "types.h": "c",
-    "keyvalue.h": "c"
+    "keyvalue.h": "c",
+    "string.h": "c"
   },
   "workbench.colorCustomizations": {
     "activityBar.background": "#56113A",
