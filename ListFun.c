@@ -37,16 +37,14 @@ NEBool findSandy(NENode *node) {
 int main(int argc, NEStrPtr argv[]) {
   NEList *list2 = NECreateList();
 
-  NamedNode a = { 0L, 0L, "Brielle" };
-  NamedNode b = { 0L, 0L, "Sandy" };
-  NamedNode c = { 0L, 0L, "Yuki" };
-  NamedNode d = { 0L, 0L, "Katie" };
-  NamedNode e = { 0L, 0L, "Sasha" };
-  NamedNode g = { 0L, 0L, "Jura" };
+  NamedNode a = { {0L, 0L}, "Brielle" };
+  NamedNode b = { {0L, 0L}, "Sandy" };
+  NamedNode c = { {0L, 0L}, "Yuki" };
+  NamedNode d = { {0L, 0L}, "Katie" };
+  NamedNode e = { {0L, 0L}, "Sasha" };
+  NamedNode g = { {0L, 0L}, "Jura" };
   NamedNode *f = NULL;
   NamedNode *h = NULL;
-  NamedNode *list = NULL;
-  unsigned char okay = 0;
 
   printf("\n------- Node Fun --------------\n\n");
 

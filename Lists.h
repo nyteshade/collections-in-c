@@ -96,7 +96,6 @@ NEUStrPtr NEListToString(NEList *list, NENodePrinter printer);
 
 #define NEAddNode(type, list, newNode) ({ \
   NENode *temp = (NENode*)list; \
-  NENode *next = NULL; \
   while (temp->NE_LISTS_NEXT_PARAM) temp = temp->NE_LISTS_NEXT_PARAM; \
   temp->NE_LISTS_NEXT_PARAM = calloc(1, sizeof(type)); \
   if (temp->NE_LISTS_NEXT_PARAM) { \

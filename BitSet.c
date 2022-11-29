@@ -109,8 +109,8 @@ NEBitConversion NEBitSetConvert(struct NEBitSet *bs) {
 		if (BITTEST(bs->bits, i)) {
 			bc.integer |= (1 << i);
 			bc.string[bs->nbits - i - 1] = '1';
-		} else {		
-			bc.string[bs->nbits - i - 1] = '0';	
+		} else {
+			bc.string[bs->nbits - i - 1] = '0';
 		}
 	}
 
@@ -126,7 +126,6 @@ void NEBitSetPrintWithSpacing(struct NEBitSet *bs, char everyFour, char everyEig
 	unsigned long len = strlen((char *)&bc.string[0]);
 	unsigned long i;
 	unsigned long spacer = len % 8;
-	unsigned char character = 0;
 
 	for (i = 0; i < spacer; i++) {
 		if (i % 4 == 0) {

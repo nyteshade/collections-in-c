@@ -37,7 +37,7 @@ ne_hash_keyvalue(KeyValue key) {
 
     case NE_NESTRING:
       return ne_hash((unsigned char *)key.data.neString->string);
-      
+
     case NE_MAP:
     case NE_MAPNODE:
     case NE_COLLECTION:
@@ -93,7 +93,7 @@ void ne_assign_add_node(NEMap* map, unsigned long index, NEMapNode *node) {
     next->node.next = NULL;
     cur->node.next = (NENode*)next;
     map->entryCounts[index]++;
-  } 
+  }
   else {
     list = (NEMapNode *)calloc(1, sizeof(NEMapNode));
     NECopyMapNodeData(list, node);
@@ -182,7 +182,6 @@ NECollection *NEGatherMapNodes(NEMap *map) {
 
 NEMap *NECreateMap(unsigned long hashLanes) {
   NEMap *map = (NEMap *)calloc(1, sizeof(NEMap));
-  unsigned long i;
 
   map->data = calloc(hashLanes, sizeof(NEMapNode*));
   map->entryCounts = calloc(hashLanes, sizeof(unsigned long));
@@ -243,7 +242,7 @@ NEMap *NECreateMap(unsigned long hashLanes) {
   map->getMapPointer = NEMapGetMapPointer;
   map->getMapCollection = NEMapGetMapCollection;
   map->getMapMap = NEMapGetMapMap;
-  
+
   map->setByteByte = NEMapSetByteByte;
   map->setByteInteger = NEMapSetByteInteger;
   map->setByteDecimal = NEMapSetByteDecimal;
@@ -817,48 +816,41 @@ NEMap *NEMapGetMapMap(NEMap *map, NEMap *key) {
 void NEMapSetByteByte(NEMap *map, unsigned char key, unsigned char value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueByte(key), CreateKeyValueByte(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetByteInteger(NEMap *map, unsigned char key, long value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueByte(key), CreateKeyValueInteger(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetByteDecimal(NEMap *map, unsigned char key, double value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueByte(key), CreateKeyValueDecimal(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetByteString(NEMap *map, unsigned char key, char *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueByte(key), CreateKeyValueString(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetBytePointer(NEMap *map, unsigned char key, void *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueByte(key), CreateKeyValuePointer(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetByteCollection(NEMap *map, unsigned char key, NECollection *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueByte(key), CreateKeyValueCollection(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetByteMap(NEMap *map, unsigned char key, NEMap *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueByte(key), CreateKeyValueMap(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -866,48 +858,42 @@ void NEMapSetByteMap(NEMap *map, unsigned char key, NEMap *value) {
 void NEMapSetIntegerByte(NEMap *map, long key, unsigned char value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueInteger(key), CreateKeyValueByte(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetIntegerInteger(NEMap *map, long key, long value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueInteger(key), CreateKeyValueInteger(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetIntegerDecimal(NEMap *map, long key, double value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueInteger(key), CreateKeyValueDecimal(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetIntegerString(NEMap *map, long key, char *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueInteger(key), CreateKeyValueString(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
+
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetIntegerPointer(NEMap *map, long key, void *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueInteger(key), CreateKeyValuePointer(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetIntegerCollection(NEMap *map, long key, NECollection *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueInteger(key), CreateKeyValueCollection(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetIntegerMap(NEMap *map, long key, NEMap *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueInteger(key), CreateKeyValueMap(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -915,49 +901,42 @@ void NEMapSetIntegerMap(NEMap *map, long key, NEMap *value) {
 void NEMapSetDecimalByte(NEMap *map, double key, unsigned char value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueDecimal(key), CreateKeyValueByte(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetDecimalInteger(NEMap *map, double key, long value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueDecimal(key), CreateKeyValueInteger(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetDecimalDecimal(NEMap *map, double key, double value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueDecimal(key), CreateKeyValueDecimal(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetDecimalString(NEMap *map, double key, char *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueDecimal(key), CreateKeyValueString(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetDecimalPointer(NEMap *map, double key, void *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueDecimal(key), CreateKeyValuePointer(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetDecimalCollection(NEMap *map, double key, NECollection *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueDecimal(key), CreateKeyValueCollection(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetDecimalMap(NEMap *map, double key, NEMap *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueDecimal(key), CreateKeyValueMap(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -965,46 +944,42 @@ void NEMapSetDecimalMap(NEMap *map, double key, NEMap *value) {
 void NEMapSetStringByte(NEMap *map, char *key, unsigned char value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueString(key), CreateKeyValueByte(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
+
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetStringInteger(NEMap *map, char *key, long value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueString(key), CreateKeyValueInteger(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
+
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetStringDecimal(NEMap *map, char *key, double value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueString(key), CreateKeyValueDecimal(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetStringString(NEMap *map, char *key, char *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueString(key), CreateKeyValueString(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
+
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetStringPointer(NEMap *map, char *key, void *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueString(key), CreateKeyValuePointer(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetStringCollection(NEMap *map, char *key, NECollection *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueString(key), CreateKeyValueCollection(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetStringMap(NEMap *map, char *key, NEMap *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueString(key), CreateKeyValueMap(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1012,49 +987,42 @@ void NEMapSetStringMap(NEMap *map, char *key, NEMap *value) {
 void NEMapSetPointerByte(NEMap *map, void *key, unsigned char value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValuePointer(key), CreateKeyValueByte(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetPointerInteger(NEMap *map, void *key, long value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValuePointer(key), CreateKeyValueInteger(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetPointerDecimal(NEMap *map, void *key, double value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValuePointer(key), CreateKeyValueDecimal(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetPointerString(NEMap *map, void *key, char *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValuePointer(key), CreateKeyValueString(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetPointerPointer(NEMap *map, void *key, void *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValuePointer(key), CreateKeyValuePointer(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetPointerCollection(NEMap *map, void *key, NECollection *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValuePointer(key), CreateKeyValueCollection(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
 void NEMapSetPointerMap(NEMap *map, void *key, NEMap *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValuePointer(key), CreateKeyValueMap(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1062,7 +1030,6 @@ void NEMapSetPointerMap(NEMap *map, void *key, NEMap *value) {
 void NEMapSetCollectionByte(NEMap *map, NECollection *key, NEByte value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueCollection(key), CreateKeyValueByte(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1070,7 +1037,6 @@ void NEMapSetCollectionByte(NEMap *map, NECollection *key, NEByte value) {
 void NEMapSetCollectionInteger(NEMap *map, NECollection *key, long value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueCollection(key), CreateKeyValueInteger(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1078,7 +1044,6 @@ void NEMapSetCollectionInteger(NEMap *map, NECollection *key, long value) {
 void NEMapSetCollectionDecimal(NEMap *map, NECollection *key, double value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueCollection(key), CreateKeyValueDecimal(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1086,7 +1051,6 @@ void NEMapSetCollectionDecimal(NEMap *map, NECollection *key, double value) {
 void NEMapSetCollectionString(NEMap *map, NECollection *key, char *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueCollection(key), CreateKeyValueString(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1094,7 +1058,6 @@ void NEMapSetCollectionString(NEMap *map, NECollection *key, char *value) {
 void NEMapSetCollectionPointer(NEMap *map, NECollection *key, void *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueCollection(key), CreateKeyValuePointer(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1102,7 +1065,6 @@ void NEMapSetCollectionPointer(NEMap *map, NECollection *key, void *value) {
 void NEMapSetCollectionCollection(NEMap *map, NECollection *key, NECollection *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueCollection(key), CreateKeyValueCollection(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
   map->entryCounts[index]++;
@@ -1111,7 +1073,6 @@ void NEMapSetCollectionCollection(NEMap *map, NECollection *key, NECollection *v
 void NEMapSetCollectionMap(NEMap *map, NECollection *key, NEMap *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueCollection(key), CreateKeyValueMap(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1119,7 +1080,6 @@ void NEMapSetCollectionMap(NEMap *map, NECollection *key, NEMap *value) {
 void NEMapSetMapByte(NEMap *map, NEMap *key, NEByte value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueMap(key), CreateKeyValueByte(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1127,7 +1087,6 @@ void NEMapSetMapByte(NEMap *map, NEMap *key, NEByte value) {
 void NEMapSetMapInteger(NEMap *map, NEMap *key, long value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueMap(key), CreateKeyValueInteger(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1135,7 +1094,6 @@ void NEMapSetMapInteger(NEMap *map, NEMap *key, long value) {
 void NEMapSetMapDecimal(NEMap *map, NEMap *key, double value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueMap(key), CreateKeyValueDecimal(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1143,7 +1101,6 @@ void NEMapSetMapDecimal(NEMap *map, NEMap *key, double value) {
 void NEMapSetMapString(NEMap *map, NEMap *key, char *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueMap(key), CreateKeyValueString(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1151,7 +1108,6 @@ void NEMapSetMapString(NEMap *map, NEMap *key, char *value) {
 void NEMapSetMapPointer(NEMap *map, NEMap *key, void *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueMap(key), CreateKeyValuePointer(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1159,7 +1115,6 @@ void NEMapSetMapPointer(NEMap *map, NEMap *key, void *value) {
 void NEMapSetMapCollection(NEMap *map, NEMap *key, NECollection *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueMap(key), CreateKeyValueCollection(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1167,7 +1122,6 @@ void NEMapSetMapCollection(NEMap *map, NEMap *key, NECollection *value) {
 void NEMapSetMapMap(NEMap *map, NEMap *key, NEMap *value) {
   NEMapNode *node = NECreateMapNode(CreateKeyValueMap(key), CreateKeyValueMap(value), NULL);
   unsigned long index = node->hash % map->size;
-  unsigned long curItemsAtIndex = map->entryCounts[index];
 
   ne_assign_add_node(map, index, node);
 }
@@ -1193,10 +1147,10 @@ void NESPrintMapNode(char *buffer, const NEStrPtr title, NEMapNode *node) {
   SPrintKeyValueStruct(valueBuffer, "Value", node->value);
 
   sprintf(
-    buffer, 
-    "NEMapNode for %s (Hash: %ld User Defined: %p)\n  %s  %s", 
+    buffer,
+    "NEMapNode for %s (Hash: %ld User Defined: %p)\n  %s  %s",
     title,
-    node->hash, 
+    node->hash,
     node->userDefined,
     keyBuffer,
     valueBuffer
@@ -1211,7 +1165,7 @@ void NEPrintMapNode(const NEStrPtr title, NEMapNode *node) {
 }
 
 void NESPrintMap(char *buffer, NEMap *map) {
-  unsigned long i, j, k = 0;
+  unsigned long i = 0;
   char title[20];
 
   if (!map || !map->data) {
