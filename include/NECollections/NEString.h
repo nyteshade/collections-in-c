@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Types.h"
+#include <NECollections/NETypes.h>
 
 typedef struct NEString NEString;
 typedef struct PascalString PascalString;

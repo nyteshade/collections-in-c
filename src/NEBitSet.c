@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "BitSet.h"
+
+#include <NECollections/NEBitSet.h>
 
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #define BITMASK(b) (1 << ((b) % CHAR_BIT))

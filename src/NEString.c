@@ -1,6 +1,6 @@
-#include "String.h"
-#include "Collection.h"
-#include "Lists.h"
+#include <NECollections/NEString.h>
+#include <NECollections/NECollection.h>
+#include <NECollections/NEList.h>
 
 #include <ctype.h>
 
@@ -52,7 +52,7 @@ NEString *NEStringCreateFromPascalString(const char string[256]) {
   memcpy(s->string, &string[1], 255);
   s->string[255] = '\0';
   s->length = strlen(s->string);
-  
+
   return s;
 }
 

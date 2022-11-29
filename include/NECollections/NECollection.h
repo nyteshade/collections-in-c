@@ -1,11 +1,11 @@
 #ifndef NE_COLLECTION_H
 #define NE_COLLECTION_H
 
-#include "KeyValue.h"
-#include "Lists.h"
-#include "Types.h"
-#include "Map.h"
-#include "String.h"
+#include <NECollections/NEKeyValue.h>
+#include <NECollections/NEList.h>
+#include <NECollections/NETypes.h>
+#include <NECollections/NEMap.h>
+#include <NECollections/NEString.h>
 
 /* Struct and typedef prototypes */
 typedef struct NECollection NECollection;

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Map.h"
+#include <NECollections/NEMap.h>
 
 int main() {
   unsigned long hashsize = 5;

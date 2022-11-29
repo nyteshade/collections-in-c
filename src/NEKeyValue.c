@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "KeyValue.h"
-#include "Collection.h"
-#include "String.h"
+#include <NECollections/NEKeyValue.h>
+#include <NECollections/NECollection.h>
+#include <NECollections/NEString.h>
 
 int NEStringCompare(const NEString *left, const NEString *right);
 
@@ -161,7 +161,7 @@ void SPrintKeyValueStruct(char *buffer, const NEStrPtr title, KeyValue kv) {
     case NE_COLLECTION: sprintf(buffer, "%sType: Collection  Data: %lx  ", buffer, (NEULong)kv.data.collection); break;
     case NE_MAPNODE: sprintf(buffer, "%sType: MapNode  Data: %lx  ", buffer, (NEULong)kv.data.mapNode); break;
     case NE_MAP: sprintf(buffer, "%sType: Map  Data: %lx  ", buffer, (NEULong)kv.data.map); break;
-  }  
+  }
   sprintf(buffer, "%sSize: %ld)\n", buffer, kv.length);
 }
 

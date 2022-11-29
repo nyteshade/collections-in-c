@@ -29,5 +29,6 @@
     "activityBar.background": "#56113A",
     "titleBar.activeBackground": "#791851",
     "titleBar.activeForeground": "#FEFCFD"
-  }
+  },
+  "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }

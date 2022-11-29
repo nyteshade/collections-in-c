@@ -1,7 +1,7 @@
-#include "Collection.h"
-#include "Lists.h"
-#include "Map.h"
-#include "String.h"
+#include <NECollections/NECollection.h>
+#include <NECollections/NEList.h>
+#include <NECollections/NEMap.h>
+#include <NECollections/NEString.h>
 
 #include <string.h>
 #include <stdlib.h>

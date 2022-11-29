@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "String.h"
+#include <NECollections/NEString.h>
 
 int main() {
   NEString *s = NEStringCreate("Hello, World!");

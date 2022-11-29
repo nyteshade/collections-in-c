@@ -1,6 +1,6 @@
-#include "Map.h"
-#include "Lists.h"
-#include "Collection.h"
+#include <NECollections/NEMap.h>
+#include <NECollections/NEList.h>
+#include <NECollections/NECollection.h>
 
 #include <stdio.h>
 #include <stdlib.h>

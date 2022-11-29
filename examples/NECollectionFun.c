@@ -1,5 +1,5 @@
-#include "Collection.h"
-#include "Map.h"
+#include <NECollections/NECollection.h>
+#include <NECollections/NEMap.h>
 
 #include <stdio.h>
 
