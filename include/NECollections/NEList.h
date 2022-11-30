@@ -67,12 +67,14 @@ NEUStrPtr NEListToString(NEList *list, NENodePrinter printer);
  ****************************************************************************/
 
 #define NEFirstNode(type, node, result) ({ \
-  for (NENode *cur = (NENode*)node; cur; cur = cur->NE_LISTS_PREV_PARAM) \
+  NENode *cur = 0L; \
+  for (cur = (NENode*)node; cur != NULL; cur = cur->NE_LISTS_PREV_PARAM) \
     result = (type)cur; \
 })
 
 #define NELastNode(type, node, result) ({ \
-  for (NENode *cur = (NENode*)node; cur; cur = cur->NE_LISTS_NEXT_PARAM) \
+  NENode *cur = 0L; \
+  for (cur = (NENode*)node; cur != NULL; cur = cur->NE_LISTS_NEXT_PARAM) \
     result = (type)cur; \
 })
 

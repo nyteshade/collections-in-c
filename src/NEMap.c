@@ -81,8 +81,8 @@ void ne_assign_add_node(NEMap* map, unsigned long index, NEMapNode *node) {
       cur = (NEMapNode*)cur->node.next;
     }
 
-    // If we get here, we didn't find a matching key
-    // so we need to add a new node to the end of the list
+    /* If we get here, we didn't find a matching key */
+    /* so we need to add a new node to the end of the list */
     cur = list;
     while (cur->node.next) {
       cur = (NEMapNode*)cur->node.next;
@@ -160,18 +160,18 @@ void NECopyMapNodeData(NEMapNode *dest, NEMapNode *src) {
 
 NECollection *NEGatherMapNodes(NEMap *map) {
   NECollection *set = NECollectionCreate();
+  NEMapNode *node;
+  NEULong i;
 
   if (!map || !map->data) {
     return set;
   }
 
-  for (unsigned long i = 0; i < map->size; i++) {
+  for (i = 0; i < map->size; i++) {
     NEMapNode *cur = map->data[i];
-    //printf("Gathering from index %lu\n", i);
+
     if (cur) {
-      //printf("  node at index %lu is valid (%p)\n", i, cur);
-      for (NEMapNode *node = cur; node; node = (NEMapNode*)node->node.next) {
-        //printf("    adding node %p to collection\n", node);
+      for (node = cur; node; node = (NEMapNode*)node->node.next) {
         set->addMapNode(set, node);
       }
     }
@@ -309,12 +309,13 @@ NEMapNode *NEMapGetNode(NEMap *map, KeyValue key) {
   unsigned long hash = ne_hash_keyvalue(key);
   unsigned long index = hash % map->size;
   NEMapNode *node = map->data[index];
+  NEMapNode *cur = 0L;
 
   if (!node) {
     return NULL;
   }
 
-  for (NEMapNode *cur = node; cur; cur = (NEMapNode*)cur->node.next) {
+  for (cur = node; cur; cur = (NEMapNode*)cur->node.next) {
     if (cur->hash == ne_hash_keyvalue(key)) {
       return cur;
     }
@@ -1127,7 +1128,9 @@ void NEMapSetMapMap(NEMap *map, NEMap *key, NEMap *value) {
 }
 
 void NEMapFree(NEMap *map) {
-  for (unsigned long i = 0; i < map->size; i++) {
+  NEULong i = 0;
+
+  for (i = 0; i < map->size; i++) {
     NEMapNode *node = map->data[i];
     free(node);
   }

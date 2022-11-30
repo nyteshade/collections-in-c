@@ -8,7 +8,7 @@ INC := include
 EXM := examples
 
 CC := clang
-CFLAGS := -Iinclude
+CFLAGS := -Iinclude -Wall -std=c90
 SOURCES := $(wildcard $(SRC)/*.c)
 OBJECTS := $(SOURCES:$(SRC)/%.c=$(OBJ)/%.o)
 EXECS := $(SOURCES:%.c=%)
@@ -45,6 +45,6 @@ install: $(OBJECTS) libnecollections.a | $(LIB)
 	@cp -rpv $(LIB)/include/* /usr/local/include/
 
 .PHONY: uninstall
-uninstall: 
+uninstall:
 	@rm -fv /usr/local/lib/libnecollections.a
 	@rm -rvf /usr/local/include/NECollections

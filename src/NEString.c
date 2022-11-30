@@ -126,16 +126,20 @@ NEString *NEStringSubstring(NEString *s, unsigned long start, unsigned long leng
 }
 
 NEString *NEStringToLower(NEString *s) {
-  char *string = strdup(s->string);
-  for (unsigned long i = 0; i < s->length; i++) {
+  NEStrPtr string = strdup(s->string);
+  NEULong i = 0;
+
+  for (i = 0; i < s->length; i++) {
     string[i] = tolower(string[i]);
   }
   return NEStringCreate(string);
 }
 
 NEString *NEStringToUpper(NEString *s) {
-  char *string = strdup(s->string);
-  for (unsigned long i = 0; i < s->length; i++) {
+  NEStrPtr string = strdup(s->string);
+  NEULong i = 0;
+
+  for (i = 0; i < s->length; i++) {
     string[i] = toupper(string[i]);
   }
   return NEStringCreate(string);

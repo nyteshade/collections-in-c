@@ -3,11 +3,10 @@
 
 #include <NECollections/NETypes.h>
 
-typedef struct NECollection NECollection;
-typedef struct NEMapNode NEMapNode;
-typedef struct NEMap NEMap;
-typedef struct NEString NEString;
-
+struct NECollection;
+struct NEMapNode;
+struct NEMap;
+struct NEString;
 typedef enum KeyValueType {
   NE_BYTE = 0,
   NE_INTEGER,
@@ -25,11 +24,11 @@ typedef union {
   NEInteger integer;
   NEDecimal decimal;
   NEStrPtr string;
-  NEString *neString;
+  struct NEString *neString;
   NEPointer pointer;
-  NECollection *collection;
-  NEMapNode *mapNode;
-  NEMap *map;
+  struct NECollection *collection;
+  struct NEMapNode *mapNode;
+  struct NEMap *map;
 } KeyValueUnion;
 
 typedef struct KeyValue {
@@ -42,21 +41,21 @@ KeyValue CreateKeyValueByte(NEByte byte);
 KeyValue CreateKeyValueInteger(NEInteger integer);
 KeyValue CreateKeyValueDecimal(NEDecimal decimal);
 KeyValue CreateKeyValueString(const NEStrPtr fromString);
-KeyValue CreateKeyValueNEString(NEString *fromString);
+KeyValue CreateKeyValueNEString(struct NEString *fromString);
 KeyValue CreateKeyValuePointer(NEPointer pointer);
-KeyValue CreateKeyValueCollection(NECollection *collection);
-KeyValue CreateKeyValueMapNode(NEMapNode *mapNode);
-KeyValue CreateKeyValueMap(NEMap *map);
+KeyValue CreateKeyValueCollection(struct NECollection *collection);
+KeyValue CreateKeyValueMapNode(struct NEMapNode *mapNode);
+KeyValue CreateKeyValueMap(struct NEMap *map);
 
 NEByte KeyValueGetByte(KeyValue *keyValue);
 NEInteger KeyValueGetInteger(KeyValue *keyValue);
 NEDecimal KeyValueGetDecimal(KeyValue *keyValue);
 NEStrPtr KeyValueGetString(KeyValue *keyValue);
-NEString *KeyValueGetNEString(KeyValue *keyValue);
+struct NEString *KeyValueGetNEString(KeyValue *keyValue);
 NEPointer KeyValueGetPointer(KeyValue *keyValue);
-NECollection *KeyValueGetCollection(KeyValue *keyValue);
-NEMapNode *KeyValueGetMapNode(KeyValue *keyValue);
-NEMap *KeyValueGetMap(KeyValue *keyValue);
+struct NECollection *KeyValueGetCollection(KeyValue *keyValue);
+struct NEMapNode *KeyValueGetMapNode(KeyValue *keyValue);
+struct NEMap *KeyValueGetMap(KeyValue *keyValue);
 
 NEBool CompareKeyValues(KeyValue *left, KeyValue *right);
 

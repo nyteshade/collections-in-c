@@ -2,7 +2,7 @@
 #define NE_BITSET_H
 
 /* Prototype declarations */
-typedef struct NEBitConversion NEBitConversion;
+struct NEBitSetConversion;
 
 /* Struct definitions */
 typedef struct NEBitSet {
@@ -17,16 +17,16 @@ typedef struct NEBitSet {
 	void (*print)(struct NEBitSet *bs);
 	void (*printWithSpacing)(struct NEBitSet *bs, char everyFour, char everyEight);
 	void (*destroy)(struct NEBitSet *bs);
-	unsigned long (*toDecimal)(struct NEBitSet *bs);
-	NEBitConversion (*convert)(struct NEBitSet *bs);
+	unsigned long (*toNumber)(struct NEBitSet *bs);
+	struct NEBitSetConversion (*convert)(struct NEBitSet *bs);
 	void (*calculateFromBinary)(struct NEBitSet *bs, const char *fromBinaryString);
 	void (*calculateFromNumber)(struct NEBitSet *bs, long fromNumber);
 } NEBitSet;
 
-typedef struct NEBitConversion {
+typedef struct NEBitSetConversion {
 	unsigned char string[1024];
 	unsigned long integer;
-} NEBitConversion;
+} NEBitSetConversion;
 
 /* Function prototypes */
 NEBitSet *NEBitSetCreate(int nbits);
@@ -39,8 +39,8 @@ void NEBitSetInvert(struct NEBitSet *bs);
 int NEBitSetTest(struct NEBitSet *bs, int bit);
 void NEBitSetPrint(struct NEBitSet *bs);
 void NEBitSetPrintWithSpacing(struct NEBitSet *bs, char everyFour, char everyEight);
-unsigned long NEBitSetToDecimal(struct NEBitSet *bs);
-NEBitConversion NEBitSetConvert(struct NEBitSet *bs);
+unsigned long NEBitSetToNumber(struct NEBitSet *bs);
+struct NEBitSetConversion NEBitSetConvert(struct NEBitSet *bs);
 void NEBitSetCalculateFromBinary(struct NEBitSet *bs, const char *fromBinaryString);
 void NEBitSetCalculateFromNumber(struct NEBitSet *bs, long fromNumber);
 

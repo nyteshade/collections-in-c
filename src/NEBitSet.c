@@ -28,6 +28,7 @@ NEBitSet *NEBitSetCreate(int nbits) {
 	bs->printWithSpacing = NEBitSetPrintWithSpacing;
 	bs->destroy = NEBitSetDestroy;
 	bs->convert = NEBitSetConvert;
+	bs->toNumber = NEBitSetToNumber;
 	bs->calculateFromBinary = NEBitSetCalculateFromBinary;
 	bs->calculateFromNumber = NEBitSetCalculateFromNumber;
 
@@ -96,11 +97,11 @@ unsigned long NEBitSetToNumber(struct NEBitSet *bs) {
 	return number;
 }
 
-NEBitConversion NEBitSetConvert(struct NEBitSet *bs) {
-	NEBitConversion bc;
+NEBitSetConversion NEBitSetConvert(struct NEBitSet *bs) {
+	NEBitSetConversion bc;
 	unsigned int i;
 
-	memset(&bc, 0, sizeof(NEBitConversion));
+	memset(&bc, 0, sizeof(NEBitSetConversion));
 
 	if (!bs) {
 		return bc;
@@ -123,7 +124,7 @@ void NEBitSetPrint(struct NEBitSet *bs) {
 }
 
 void NEBitSetPrintWithSpacing(struct NEBitSet *bs, char everyFour, char everyEight) {
-	NEBitConversion bc = NEBitSetConvert(bs);
+	NEBitSetConversion bc = NEBitSetConvert(bs);
 	unsigned long len = strlen((char *)&bc.string[0]);
 	unsigned long i;
 	unsigned long spacer = len % 8;

@@ -6,32 +6,32 @@
 
 #include <NECollections/NETypes.h>
 
-typedef struct NEString NEString;
-typedef struct PascalString PascalString;
-typedef struct NECollection NECollection;
+struct NEString;
+struct NECollection;
+struct PascalString;
 
 typedef struct NEString {
   char *string;
   NEULong length;
 
-  PascalString (*toPascalString)(NEString *self);
+  struct PascalString (*toPascalString)(struct NEString *self);
 
-  char (*charAt)(NEString *self, NEULong index);
-  int (*compare)(const NEString *self, const NEString *other);
-  int (*compareInsensitive)(const NEString *self, const NEString *other);
-  NEString *(*duplicate)(const NEString *self);
-  NEString *(*concat)(NEString *self, NEString *other);
-  NEString *(*substring)(NEString *self, NEULong start, NEULong length);
-  NEString *(*splice)(NEString *self, NEULong start, NEULong end);
-  NEString *(*reverse)(NEString *self);
-  NEString *(*toLower)(NEString *self);
-  NEString *(*toUpper)(NEString *self);
-  NEString *(*trim)(NEString *self);
-  NEString *(*trimLeft)(NEString *self);
-  NEString *(*trimRight)(NEString *self);
-  NECollection *(*split)(NEString *s, char delimiter);
+  char (*charAt)(struct NEString *self, NEULong index);
+  int (*compare)(const struct NEString *self, const struct NEString *other);
+  int (*compareInsensitive)(const struct NEString *self, const struct NEString *other);
+  struct NEString *(*duplicate)(const struct NEString *self);
+  struct NEString *(*concat)(struct NEString *self, struct NEString *other);
+  struct NEString *(*substring)(struct NEString *self, NEULong start, NEULong length);
+  struct NEString *(*splice)(struct NEString *self, NEULong start, NEULong end);
+  struct NEString *(*reverse)(struct NEString *self);
+  struct NEString *(*toLower)(struct NEString *self);
+  struct NEString *(*toUpper)(struct NEString *self);
+  struct NEString *(*trim)(struct NEString *self);
+  struct NEString *(*trimLeft)(struct NEString *self);
+  struct NEString *(*trimRight)(struct NEString *self);
+  struct NECollection *(*split)(struct NEString *s, char delimiter);
 
-  void (*free)(NEString *self);
+  void (*free)(struct NEString *self);
 } NEString;
 
 typedef struct PascalString {
@@ -58,7 +58,7 @@ NEString *NEStringToUpper(NEString *s);
 NEString *NEStringTrim(NEString *s);
 NEString *NEStringTrimLeft(NEString *s);
 NEString *NEStringTrimRight(NEString *s);
-NECollection *NEStringSplit(NEString *s, char delimiter);
+struct NECollection *NEStringSplit(NEString *s, char delimiter);
 PascalString NEStringToPascalString(NEString *s);
 
 #endif

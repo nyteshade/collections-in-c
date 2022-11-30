@@ -71,7 +71,7 @@ int main(int argc, NEStrPtr argv[]) {
     printf("  Name: %s (%p)\n", f->name, f);
   }
 
-  // Fails on first item, probably on last item ; fix it
+  /* Fails on first item, probably on last item ; fix it */
   NERemoveNode(NamedNode*, &a, &b);
   printf("\nRemoved Sandy node from the list of nodes\n");
 

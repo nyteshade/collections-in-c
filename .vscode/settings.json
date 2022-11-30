@@ -23,7 +23,10 @@
     "__node_handle": "c",
     "types.h": "c",
     "keyvalue.h": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "nekeyvalue.h": "c",
+    "nemap.h": "c",
+    "netypes.h": "c"
   },
   "workbench.colorCustomizations": {
     "activityBar.background": "#56113A",
