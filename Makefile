@@ -4,6 +4,7 @@ SRC := src
 BIN := bin
 OBJ := obj
 LIB := lib
+INC := include
 EXM := examples
 
 CC := clang
@@ -37,3 +38,13 @@ $(OBJ)/%.o: $(SRC)/%.c | $(OBJ)
 .PHONY: clean
 clean:
 	-@ rm -rf $(BIN) $(LIB) $(OBJ)
+
+.PHONY: install
+install: $(OBJECTS) libnecollections.a | $(LIB)
+	@cp -rpv $(LIB)/libnecollections.a /usr/local/lib
+	@cp -rpv $(LIB)/include/* /usr/local/include/
+
+.PHONY: uninstall
+uninstall: 
+	@rm -fv /usr/local/lib/libnecollections.a
+	@rm -rvf /usr/local/include/NECollections
