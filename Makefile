@@ -8,7 +8,7 @@ INC := include
 EXM := examples
 
 CC := clang
-CFLAGS := -Iinclude -Wall -std=c90
+CFLAGS := -Iinclude -Wall -std=c89
 SOURCES := $(wildcard $(SRC)/*.c)
 OBJECTS := $(SOURCES:$(SRC)/%.c=$(OBJ)/%.o)
 EXECS := $(SOURCES:%.c=%)
