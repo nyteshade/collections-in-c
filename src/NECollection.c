@@ -7,6 +7,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#ifdef __SASC 
+#define strcasecmp stricmp
+#endif
+
 void _NECollectionNodeFreer(NENode *node);
 
 NECollection *NECollectionCreate(void) {
@@ -340,7 +344,7 @@ KeyValue *NECollectionAt(NECollection *self, NEInteger index) {
 }
 
 NECollectionByteAtResult NECollectionByteAt(NECollection *self, NEInteger index) {
-  NECollectionByteAtResult result = {NEFalse, 0};
+  NECollectionByteAtResult result = {0, 0};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_BYTE) {
     result.value = item->data.byte;
@@ -350,7 +354,7 @@ NECollectionByteAtResult NECollectionByteAt(NECollection *self, NEInteger index)
 }
 
 NECollectionIntegerAtResult NECollectionIntegerAt(NECollection *self, NEInteger index) {
-  NECollectionIntegerAtResult result = {NEFalse, 0};
+  NECollectionIntegerAtResult result = {0, 0};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_INTEGER) {
     result.value = item->data.integer;
@@ -360,7 +364,7 @@ NECollectionIntegerAtResult NECollectionIntegerAt(NECollection *self, NEInteger 
 }
 
 NECollectionDecimalAtResult NECollectionDecimalAt(NECollection *self, NEInteger index) {
-  NECollectionDecimalAtResult result = {NEFalse, 0};
+  NECollectionDecimalAtResult result = {0, 0};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_DECIMAL) {
     result.value = item->data.decimal;
@@ -370,7 +374,7 @@ NECollectionDecimalAtResult NECollectionDecimalAt(NECollection *self, NEInteger 
 }
 
 NECollectionStringAtResult NECollectionStringAt(NECollection *self, NEInteger index) {
-  NECollectionStringAtResult result = {NEFalse, NULL};
+  NECollectionStringAtResult result = {0, NULL};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_STRING) {
     result.value = item->data.string;
@@ -380,7 +384,7 @@ NECollectionStringAtResult NECollectionStringAt(NECollection *self, NEInteger in
 }
 
 NECollectionNEStringAtResult NECollectionNEStringAt(NECollection *self, NEInteger index) {
-  NECollectionNEStringAtResult result = {NEFalse, NULL};
+  NECollectionNEStringAtResult result = {0, NULL};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_NESTRING) {
     result.value = item->data.neString;
@@ -390,7 +394,7 @@ NECollectionNEStringAtResult NECollectionNEStringAt(NECollection *self, NEIntege
 }
 
 NECollectionPointerAtResult NECollectionPointerAt(NECollection *self, NEInteger index) {
-  NECollectionPointerAtResult result = {NEFalse, NULL};
+  NECollectionPointerAtResult result = {0, NULL};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_POINTER) {
     result.value = item->data.pointer;
@@ -400,7 +404,7 @@ NECollectionPointerAtResult NECollectionPointerAt(NECollection *self, NEInteger 
 }
 
 NECollectionCollectionAtResult NECollectionCollectionAt(NECollection *self, NEInteger index) {
-  NECollectionCollectionAtResult result = {NEFalse, NULL};
+  NECollectionCollectionAtResult result = {0, NULL};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_COLLECTION) {
     result.value = item->data.collection;
@@ -410,7 +414,7 @@ NECollectionCollectionAtResult NECollectionCollectionAt(NECollection *self, NEIn
 }
 
 NECollectionMapNodeAtResult NECollectionMapNodeAt(NECollection *self, NEInteger index) {
-  NECollectionMapNodeAtResult result = {NEFalse, NULL};
+  NECollectionMapNodeAtResult result = {0, NULL};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_MAPNODE) {
     result.value = item->data.mapNode;
@@ -420,7 +424,7 @@ NECollectionMapNodeAtResult NECollectionMapNodeAt(NECollection *self, NEInteger 
 }
 
 NECollectionMapAtResult NECollectionMapAt(NECollection *self, NEInteger index) {
-  NECollectionMapAtResult result = {NEFalse, NULL};
+  NECollectionMapAtResult result = {0, NULL};
   KeyValue *item = NECollectionAt(self, index);
   if (item && item->type == NE_MAP) {
     result.value = item->data.map;
@@ -430,7 +434,7 @@ NECollectionMapAtResult NECollectionMapAt(NECollection *self, NEInteger index) {
 }
 
 NEInteger NECollectionCount(NECollection *self) {
-  return NEListSize(self->list);
+  return (NEInteger)NEListSize(self->list);
 }
 void NECollectionClear(NECollection *self) {
   NEDestroyListCustom(self->list, _NECollectionNodeFreer);

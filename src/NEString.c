@@ -4,6 +4,10 @@
 
 #include <ctype.h>
 
+#ifdef __SASC 
+#define strcasecmp stricmp
+#endif
+
 NEString *NEStringCreate(const char *string) {
   NEString *s = (NEString *)calloc(1, sizeof(NEString));
   s->string = strdup(string);
@@ -70,7 +74,7 @@ int NEStringCompareInsensitive(const NEString *left, const NEString *right) {
 
 int NEStringCompareInternals(const NEString *left, const NEString *right, NEBool caseInsensitive) {
   if (left->length != right->length) {
-    return left->length - right->length;
+    return (int)(left->length - right->length);
   }
 
   if (caseInsensitive) {

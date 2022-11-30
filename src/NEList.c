@@ -151,11 +151,11 @@ void NEListRemove(NEList *list, NENode *node) {
 }
 
 void NEListRemoveNodesFromList(NEList *list, NENodeFilter filter) {
+  NENode *node = list != NULL ? list->head : NULL;
+
   if (!list) {
     return;
   }
-
-  NENode *node = list->head;
 
   while (node != NULL) {
     NENode *next = node->NE_LISTS_NEXT_PARAM;
@@ -170,11 +170,11 @@ void NEListRemoveNodesFromList(NEList *list, NENodeFilter filter) {
 }
 
 void NEListIterate(NEList *list, NENodeIterator iterator) {
+  NENode *node = list != NULL ? list->head : NULL;
+
   if (!list) {
     return;
   }
-
-  NENode *node = list->head;
 
   while (node != NULL) {
     NENode *next = node->NE_LISTS_NEXT_PARAM;

@@ -137,15 +137,15 @@ NEBool CompareKeyValues(KeyValue *left, KeyValue *right) {
   if (left->type != right->type) return 0;
 
   switch (left->type) {
-    case NE_STRING: return strcmp(left->data.string, right->data.string) == 0 ? 1 : 0;
-    case NE_NESTRING: return NEStringCompare(left->data.neString, right->data.neString) == 0 ? 1 : 0;
-    case NE_INTEGER: return left->data.integer == right->data.integer;
-    case NE_DECIMAL: return left->data.decimal == right->data.decimal;
-    case NE_POINTER: return left->data.pointer == right->data.pointer;
-    case NE_BYTE: return left->data.byte == right->data.byte;
-    case NE_COLLECTION: return left->data.collection == right->data.collection;
-    case NE_MAPNODE: return left->data.mapNode == right->data.mapNode;
-    case NE_MAP: return left->data.map == right->data.map;
+    case NE_STRING: return (NEBool)(strcmp(left->data.string, right->data.string) == 0 ? 1 : 0);
+    case NE_NESTRING: return (NEBool)(NEStringCompare(left->data.neString, right->data.neString) == 0 ? 1 : 0);
+    case NE_INTEGER: return (NEBool)(left->data.integer == right->data.integer);
+    case NE_DECIMAL: return (NEBool)(left->data.decimal == right->data.decimal);
+    case NE_POINTER: return (NEBool)(left->data.pointer == right->data.pointer);
+    case NE_BYTE: return (NEBool)(left->data.byte == right->data.byte);
+    case NE_COLLECTION: return (NEBool)(left->data.collection == right->data.collection);
+    case NE_MAPNODE: return (NEBool)(left->data.mapNode == right->data.mapNode);
+    case NE_MAP: return (NEBool)(left->data.map == right->data.map);
   }
 }
 

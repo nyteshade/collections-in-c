@@ -137,7 +137,7 @@ void printTypesAndValues(KeyValue *value, NEULong index) {
 }
 
 NEBool filterForStrings(KeyValue *value, NEULong index) {
-  return value->type == NE_STRING;
+  return (NEBool)(value->type == NE_STRING);
 }
 
 NECollectionMapResult mapToInteger(KeyValue *value, NEULong index) {

@@ -6,8 +6,11 @@
 
 #include <NECollections/NETypes.h>
 
-struct NEString;
+#ifndef NE_COLLECTION_H
 struct NECollection;
+#endif
+
+struct NEString;
 struct PascalString;
 
 typedef struct NEString {

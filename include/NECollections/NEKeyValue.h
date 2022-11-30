@@ -3,10 +3,22 @@
 
 #include <NECollections/NETypes.h>
 
+#ifndef NE_COLLECTION_H
 struct NECollection;
+#endif
+
+#ifndef NE_MAPNODE_H
 struct NEMapNode;
+#endif
+
+#ifndef NE_MAP_H
 struct NEMap;
+#endif
+
+#ifndef NE_STRING_H
 struct NEString;
+#endif
+
 typedef enum KeyValueType {
   NE_BYTE = 0,
   NE_INTEGER,
