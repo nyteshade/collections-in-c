@@ -1,0 +1,20 @@
+.key DIR/A
+.bra {
+.ket }
+
+If "{DIR}" EQ ""
+  Echo "Specify a root directory containing Collections-in-C files"
+Else
+  If Exists "{DIR}"
+    Set CWD `cd`
+    Cd "{DIR}"
+  EndIf
+
+  Assign Lib: Lib Add
+  Assign Include: Include Add
+
+  If Exists "{DIR}"
+    Cd "$CWD"
+    UnSet CWD
+  EndIf
+EndIf
